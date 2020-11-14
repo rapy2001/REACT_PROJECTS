@@ -81,20 +81,22 @@ const UpdateTrip = () =>{
     return(
         <div>
             {msg && <h4>{msg}</h4>}
-            <div>
-                <form onSubmit = {handleSubmit}>
-                    <h3>Add a Tour</h3>
-                    <input type = 'text' placeholder = 'Name of the Tour' name = 'tripName' value = {trip.tripName} onChange = {handleChange} autoComplete = 'off'/>
-                    <input type = 'text' placeholder = 'Image Url' name = 'tripImage' value = {trip.tripImage} onChange = {handleChange} autoComplete = 'off'/>
-                    <input type = 'number' min = '0.0' step = '0.1' name = 'tripPrice' value = {trip.tripPrice} onChange = {handleChange} autoComplete = 'off'/>
-                    <textarea name = 'tripDescription' value = {trip.tripDescription} autoComplete = 'off' onChange = {handleChange}>
+            <div className = 'updateTrip box'>
+                <div className = 'box_1'>
+                    <form onSubmit = {handleSubmit} className = 'form'>
+                        <h3>Add a Tour</h3>
+                        <input type = 'text' placeholder = 'Name of the Tour' name = 'tripName' value = {trip.tripName} onChange = {handleChange} autoComplete = 'off'/>
+                        <input type = 'text' placeholder = 'Image Url' name = 'tripImage' value = {trip.tripImage} onChange = {handleChange} autoComplete = 'off'/>
+                        <input type = 'number' min = '0.0' step = '0.1' name = 'tripPrice' value = {trip.tripPrice} onChange = {handleChange} autoComplete = 'off'/>
+                        <textarea name = 'tripDescription' value = {trip.tripDescription} autoComplete = 'off' onChange = {handleChange}>
 
-                    </textarea>
-                    <button type = 'submit'>Update</button>
-                </form>
-            </div>
-            <div>
-                <h3>Trips App</h3>Trips App
+                        </textarea>
+                        <button className = 'btn' type = 'submit'>Update</button>
+                    </form>
+                </div>
+                <div className = 'box_2'>
+                    <h3>Trips App</h3>
+                </div>
             </div>
         </div>
     )

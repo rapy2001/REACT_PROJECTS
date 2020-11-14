@@ -79,10 +79,10 @@ const AddTour = ({addTour}) =>{
         
     }
     return (
-        <div className = 'box'>
+        <div className = 'box add_trip'>
             <div className = 'box_1'>
-                {msg.show && <h4>{msg.msg}</h4>}
-                <form onSubmit = {handleSubmit}>
+                {msg.show && <h4 className = 'msg'>{msg.msg}</h4>}
+                <form onSubmit = {handleSubmit} className = 'form'>
                     <h3>Add a Tour</h3>
                     <input type = 'text' placeholder = 'Name of the Tour' name = 'name' value = {tour.name} onChange = {handleChange} autoComplete = 'off'/>
                     <input type = 'text' placeholder = 'Image Url' name = 'image' value = {tour.image} onChange = {handleChange} autoComplete = 'off'/>
@@ -90,7 +90,7 @@ const AddTour = ({addTour}) =>{
                     <textarea name = 'description' value = {tour.description} autoComplete = 'off' onChange = {handleChange}>
 
                     </textarea>
-                    <button type = 'submit'>Add Trip</button>
+                    <button type = 'submit' className = 'btn'>Add Trip</button>
                 </form>
             </div>
             <div className = 'box_2'>

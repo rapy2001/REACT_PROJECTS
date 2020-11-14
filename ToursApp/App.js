@@ -7,6 +7,8 @@ import AddTour from "./components/AddTour";
 import Trips from "./components/Trips";
 import UpdateTrip from "./components/updateTrip";
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
+import "./public/style.css";
+import Footer from "./components/Footer";
 const App = () =>{
     const [tours,setTours] = useState([]);
     const addTour = (tour) =>{
@@ -36,8 +38,9 @@ const App = () =>{
                 </Route>
                 
             </Switch>
+            <Footer />
         </Router>
-       
+        
     );
 }
 

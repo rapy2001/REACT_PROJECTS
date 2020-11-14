@@ -47,17 +47,17 @@ const Trip = ({trip_id,trip_name,trip_description,trip_image,trip_price,removeTr
         }
     }
     return (
-        <div>
-            {err && <h4>{err}</h4>}
-            <div>
+        <div className = 'trip_card'>
+            {err && <h4 className = 'msg'>{err}</h4>}
+            <div className = 'trip_card_img_box'>
                 <img src = {trip_image} alt = {trip_name}/>
             </div>
-            <div>
-                <div>
-                    <h4>{trip_name}</h4>
-                    <h5>$ {trip_price}</h5>
+            <div className = 'trip_card_content_box'>
+                <div className = 'trip_card_title_price_box'>
+                    <h3>{trip_name}</h3>
+                    <h4>$ {trip_price}</h4>
                 </div>
-                <div>
+                <div className = 'trip_card_description_box'>
                     <p>
                         {view ? toggle.flg ? trip_description : trip_description.substring(0,100) : trip_description}
                         {view ? <button type = 'button' onClick = {() => {setToggle((toggle) => {
@@ -69,13 +69,13 @@ const Trip = ({trip_id,trip_name,trip_description,trip_image,trip_price,removeTr
                     </p>
                 </div>
                 <div>
-                    <div>
+                    <div className = 'trip_card_int_btn_box'>
                         <button type = "button" onClick = {() => {removeTrip(trip_id)}}>Not Interested</button>
                     </div>
                    
-                    <div>
-                        <Link to = {`/updateTrip/${trip_id}`}>Update</Link>
-                        <button type = 'button' onClick = {() => {handleUD(2)}}>Delete</button>
+                    <div trip_card_upd_dlt_box>
+                        <Link id = 'update_btn' to = {`/updateTrip/${trip_id}`} className = 'btn'>Update</Link>
+                        <button id = 'delete_btn' className = 'btn' type = 'button' onClick = {() => {handleUD(2)}}>Delete</button>
                     </div>
                 </div>
             </div>

@@ -31,10 +31,13 @@ const Trips = ({trips}) =>{
         return <Trip key = {trip.trip_id} {...trip} removeTrip = {removeTrip}/>
     })
     return (
-        <>
-            {msg && <h4>{msg}</h4>}
-            {ary.length > 0 ? ary : <h4>No Trips Yet ...</h4>}
-        </>
+        <div id = 'viewTrips_div'>
+            <h1>Our Trips</h1>
+            <div id = 'viewTrips_container'>
+                {msg && <h4 className = 'msg'>{msg}</h4>}
+                {ary.length > 0 ? ary : <h4>No Trips Yet ...</h4>}
+            </div>
+        </div>
     )
 }
 

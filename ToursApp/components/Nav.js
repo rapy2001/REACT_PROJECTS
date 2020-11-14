@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 const Nav = () => {
     return (
-        <nav>
+        <nav className = 'nav'>
             <div>
                 <Link to = '/'>Trips App</Link>
             </div>
