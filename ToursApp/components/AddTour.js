@@ -1,14 +1,9 @@
 import React from "react";
 import {useState} from "react";
-const AddTour = ({addTour,toggleForm}) =>{
-    // React.useEffect(()=>{
-        // setTimeout(function(){
-        //     setMsg({
-        //         show:false,
-        //         msg:""
-        //     })
-    //     },2500)
-    // })
+import {useHistory} from "react-router-dom";
+import Axios from "axios";
+const AddTour = ({addTour}) =>{
+    let history = useHistory();
     const [tour,setTour] = useState({
         id:new Date().getTime().toString(),
         name:"",
@@ -42,27 +37,44 @@ const AddTour = ({addTour,toggleForm}) =>{
         }
         else
         {
-            addTour(tour);
-            setTour({
-                id:new Date().getTime().toString(),
-                name:"",
-                image:"",
-                price:0,
-                description:""
+            // addTour(tour);
+            let obj = tour;
+            let data = JSON.stringify(obj);
+            Axios.post("http://localhost/projects/TripsApp/API/addReactTrip.php",data)
+            .then((response) => {
+                if(response.data.flg == 1)
+                {
+                    setTour({
+                        id:new Date().getTime().toString(),
+                        name:"",
+                        image:"",
+                        price:0,
+                        description:""
+                    })
+                    setMsg({
+                        show:true,
+                        msg:"Tour added Successfully"
+                    });
+                    setTimeout(function(){
+                        history.push("/viewTrips");
+                    },3500);
+                }
             })
-            setTimeout(function(){
-                toggleForm();
-            },3500);
-            setMsg({
-                show:true,
-                msg:"Tour added Successfully"
-            });
+            .catch((err) => {
+                setTimeout(function() {
+                    setMsg({
+                        show:true,
+                        msg:"Error while adding the trip"
+                    })
+                },2500);
+            })
             setTimeout(function(){
                 setMsg({
                     show:false,
                     msg:""
                 })
             },2500);
+            
         }
         
     }
@@ -78,7 +90,7 @@ const AddTour = ({addTour,toggleForm}) =>{
                     <textarea name = 'description' value = {tour.description} autoComplete = 'off' onChange = {handleChange}>
 
                     </textarea>
-                    <button type = 'submit'>Submit</button>
+                    <button type = 'submit'>Add Trip</button>
                 </form>
             </div>
             <div className = 'box_2'>
