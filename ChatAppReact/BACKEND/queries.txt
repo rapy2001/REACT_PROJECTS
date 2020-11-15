@@ -1,0 +1,13 @@
+create table users(
+    user_id int primary key auto_increment,
+    username varchar(100) not null default 'USERNAME',
+    password varchar(45) not null,
+    image text not null default 'https://cdn.dribbble.com/users/171004/screenshots/14304355/media/c97f69f5044e73bfd831212ef0cad7fe.png'
+);
+
+create table friends (
+    friend_id int not null,
+    user_id int not null,
+    FOREIGN KEY(friend_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
