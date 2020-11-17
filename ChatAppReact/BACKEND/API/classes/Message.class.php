@@ -1,13 +1,14 @@
 <?php
-    class Request
+    class Message
     {
         private $serverName = 'localhost';
         private $userName = 'root';
         private $password = '';
         private $dbName = 'chat';
+        private $established = false;
         private $connection;
         private $pdoConnection;
-        private $established = false;
+
         public function __construct()
         {
             $this->connection = new mysqli($this->serverName,$this->userName,$this->password,$this->dbName);
@@ -22,41 +23,41 @@
             $this->pdoConnection = new PDO("mysql:host=$this->serverName;dbname=$this->dbName",$this->userName,$this->password);
             $this->pdoConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         }
-
-        public function getUserRequests($userId)
+        public function addMessage($fromId,$toId,$message)
         {
             try
             {
-                $query = "SELECT user_id,username,image from users INNER JOIN requests ON users.user_id = requests.from_id WHERE requests.to_id = :userId";
+                $query = 'INSERT INTO messages VALUES(0,:fromId,:toId,:messageText,NOW());';
                 $stmt = $this->pdoConnection->prepare($query);
-                $stmt->execute(array(":userId" => $userId));
-                $requests = [];
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                {
-                    $requests[] = $row;
-                }
-                $ary = array("flg" => 1, "requests" => $requests);
-                return $ary;
-            }
-            catch(Exception $e)
-            {
-                $ary = array("flg" => -1, "msg" => $e->getMessage());
-                return $ary;
-            }
-        }
-        public function deleteRequest($fromId,$toId)
-        {
-            try
-            {
-                $query = "DELETE FROM requests WHERE from_id = :fromId AND to_id = :toId";
-                $stmt = $this->pdoConnection->prepare($query);
-                $stmt->execute(array(":fromId" => $fromId, ":toId" => $toId));
+                $stmt->execute(array(":fromId" => $fromId, ":toId" => $toId, ":messageText" => $message));
                 $ary = array("flg" => 1);
                 return $ary;
             }
             catch(Exception $e)
             {
-                $ary = array("flg" => 1, "msg" => $e->getMessage());
+                $ary = array("flg" => -1,"msg" => $e->getMessage());
+                return $ary;
+            }
+        }
+
+        public function getMessages($userId,$friendId)
+        {
+            try
+            {
+                $query = 'SELECT * FROM messages WHERE from_id = :fromId AND to_id = :toId OR from_id = :FROMID AND to_id = :TOID';
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":fromId" => $userId, ":toId" => $friendId, ":FROMID" => $friendId, ":TOID" => $userId));
+                $messages = [];
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                {
+                    $messages[] = $row;
+                }
+                $ary = array("flg" => 1, "messages" => $messages);
+                return $ary;
+            }
+            catch(Exception $e)
+            {
+                $ary = array("flg" => -1,"msg" => $e->getMessage());
                 return $ary;
             }
         }

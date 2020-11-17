@@ -1,13 +1,13 @@
 <?php
-    class Request
+    class Friend
     {
         private $serverName = 'localhost';
         private $userName = 'root';
         private $password = '';
         private $dbName = 'chat';
         private $connection;
-        private $pdoConnection;
         private $established = false;
+        private $pdoConnection;
         public function __construct()
         {
             $this->connection = new mysqli($this->serverName,$this->userName,$this->password,$this->dbName);
@@ -23,40 +23,42 @@
             $this->pdoConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         }
 
-        public function getUserRequests($userId)
+        public function addFriend($userId,$friendId)
         {
             try
             {
-                $query = "SELECT user_id,username,image from users INNER JOIN requests ON users.user_id = requests.from_id WHERE requests.to_id = :userId";
+                $query = "INSERT INTO friends VALUES(:friendId,:userId)";
                 $stmt = $this->pdoConnection->prepare($query);
-                $stmt->execute(array(":userId" => $userId));
-                $requests = [];
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                {
-                    $requests[] = $row;
-                }
-                $ary = array("flg" => 1, "requests" => $requests);
-                return $ary;
-            }
-            catch(Exception $e)
-            {
-                $ary = array("flg" => -1, "msg" => $e->getMessage());
-                return $ary;
-            }
-        }
-        public function deleteRequest($fromId,$toId)
-        {
-            try
-            {
-                $query = "DELETE FROM requests WHERE from_id = :fromId AND to_id = :toId";
-                $stmt = $this->pdoConnection->prepare($query);
-                $stmt->execute(array(":fromId" => $fromId, ":toId" => $toId));
+                $stmt->execute(array(":friendId" => $friendId, ":userId" => $userId));
                 $ary = array("flg" => 1);
                 return $ary;
             }
             catch(Exception $e)
             {
-                $ary = array("flg" => 1, "msg" => $e->getMessage());
+                $ary = array("flg" => 0, "msg" => $e->getMessage());
+                return $ary;
+            }
+            
+        }
+
+        public function getUserFriends($userId)
+        {
+            try
+            {
+                $query = "SELECT users.user_id, users.username, users.image FROM users INNER JOIN friends ON users.user_id = friends.friend_id WHERE friends.user_id = :userId";
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":userId" => $userId));
+                $friends = [];
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                {
+                    $friends[] = $row;
+                }
+                $ary = array("flg" => 1, "friends" => $friends);
+                return $ary;
+            }
+            catch(Exception $e)
+            {
+                $ary = array("flg" => -1, "msg" => $e->getMessage());
                 return $ary;
             }
         }

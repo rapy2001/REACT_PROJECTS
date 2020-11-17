@@ -1,11 +1,11 @@
 import React from "react";
 import Axios from "axios";
-import {obj} from "../App"; 
+// import {obj} from "../App"; 
 import User from "./User";
-const Users = () => {
+const Users = ({crntUser,isLoggedIn}) => {
     const [msg,setMsg] = React.useState('');
     const [users,setUsers] = React.useState([]);
-    const {crntUser,isLoggedIn} = React.useContext(obj);
+    // const {crntUser,isLoggedIn} = React.useContext(obj);
     let object = {id:crntUser.id};
     let data = JSON.stringify(object);
     const getUsersFunction = () => {

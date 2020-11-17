@@ -1,10 +1,10 @@
 import React from "react";
 import Axios from 'axios';
-import {obj} from "../App";
+// import {obj} from "../App";
 import {useHistory} from "react-router-dom";
-const User = ({username,image,user_id,status,getUsersFunction}) => {
+const User = ({username,image,user_id,status,getUsersFunction,crntUser}) => {
     let history = useHistory();
-    let {crntUser} = React.useContext(obj);
+    // let {crntUser} = React.useContext(obj);
     const [msg,setMsg] = React.useState('');
     const request = (user_id) => {
         let userId = crntUser.id;

@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {obj} from "../App";
-const Nav = () => {
-    let {isLoggedIn,logout,crntUser} = React.useContext(obj);
+// import {obj} from "../App";
+const Nav = ({isLoggedIn,logout,crntUser}) => {
+    // let {isLoggedIn,logout,crntUser} = React.useContext(obj);
     let [msg,setMsg] = React.useState('');
     const handleLogout = () => {
         logout();
@@ -22,6 +22,8 @@ const Nav = () => {
                 <Link to = '/viewUsers'>View Users</Link>
                 {isLoggedIn || <Link to = '/login'>LogIn</Link>}
                 {isLoggedIn && <button onClick = {() => {handleLogout()}}>Log Out {crntUser.username}</button>}
+                {isLoggedIn && <Link to = '/friendRequests'>View Friend Requests</Link>}
+                {isLoggedIn && <Link to = '/friends'>View Friends</Link>}
             </div>
         </nav>
     )

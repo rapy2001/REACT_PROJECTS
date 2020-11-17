@@ -1,8 +1,8 @@
 import React from "react";
-import {obj} from "../App";
+// import {obj} from "../App";
 import {useHistory} from "react-router-dom";
 import Axios from "axios";
-const LogIn = () => {
+const LogIn = ({login}) => {
     let history =useHistory();
     const [user,setUser] = React.useState({
         username:'',
@@ -16,7 +16,7 @@ const LogIn = () => {
         }
         setUser(newUser);
     }
-    let {login} = React.useContext(obj);
+    // let {login} = React.useContext(obj);
     const handleSubmit = (e) => {
         e.preventDefault();
         let data = JSON.stringify(user);
