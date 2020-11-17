@@ -125,6 +125,48 @@
                 return -1;
             }
         }
+
+        public function checkRequestStatus($userId,$friendId)
+        {
+            try
+            {
+                $query = 'SELECT * FROM requests WHERE from_id = :userId AND to_id = :friendId';
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":userId" => $userId, "friendId" => $friendId));
+                if($stmt->rowCount() > 0)
+                {
+                    $ary = array("flg" => 1);
+                    return $ary;
+                }
+                else
+                {
+                    $ary = array("flg" => 0);
+                    return $ary;
+                }
+            }
+            catch(Exception $e)
+            {
+                $ary = array("flg" => -1, "msg" => $e->getMessage());
+                return $ary;
+            }
+        }
+
+        public function sendFriendRequest($userId,$friendId)
+        {
+            try
+            {
+                $query = 'INSERT INTO requests VALUES(:userId,:friendId);';
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":userId" => $userId,":friendId" => $friendId));
+                $ary = array("flg" => 1);
+                return $ary;
+            }
+            catch (Exception $e)
+            {
+                $ary = array("flg" => 0, "msg" => $e->getMessage());
+                return $ary;
+            }
+        }
         public function __destruct()
         {
             if($this->established)

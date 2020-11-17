@@ -11,3 +11,10 @@ create table friends (
     FOREIGN KEY(friend_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+create table requests(
+	from_id int not null,
+    to_id int not null,
+    FOREIGN KEY (from_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(to_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

@@ -8,10 +8,8 @@ const Users = () => {
     const {crntUser,isLoggedIn} = React.useContext(obj);
     let object = {id:crntUser.id};
     let data = JSON.stringify(object);
-    React.useEffect(() => {
-        if(isLoggedIn)
-        {
-            Axios.post("http://localhost/projects/ChatApp/API/getUsers.php",data)
+    const getUsersFunction = () => {
+        Axios.post("http://localhost/projects/ChatApp/API/getUsers.php",data)
             .then((response) => {
                 if(response.data.flg == 1)
                 {
@@ -31,12 +29,18 @@ const Users = () => {
                     setMsg('');
                 },2500);
             })
+    }
+    React.useEffect(() => {
+        if(isLoggedIn)
+        {
+            getUsersFunction();
         }
     },[]);
     if(isLoggedIn)
     {
         let ary = users.map((user) => {
-            return <User key = {user.user_id} {...user}/>
+            if(user.user_id !== crntUser.id)
+                return <User key = {user.user_id} {...user} getUsersFunction = {getUsersFunction}/>
         })
         return (
             <div>

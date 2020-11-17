@@ -19,13 +19,18 @@
             for($i = 0; $i < count($result); $i++)
             {
                 $flg = $obj->checkFriendshipStatus($data['id'],$result[$i]['user_id']);
-                if($flg == 1)
+                $flg1 = $obj->checkRequestStatus($data['id'],$result[$i]['user_id']);
+                $flg2 = $obj->checkRequestStatus($result[$i]['user_id'],$data['id']);
+                if($flg == 0)
+                {
+                    if($flg1['flg'] == 0 && $flg2['flg'] == 0)
+                        $result[$i]['status'] = 0;
+                    else
+                        $result[$i]['status'] = 1;
+                }
+                else if($flg == 1)
                 {
                     $result[$i]['status'] = 1;
-                }
-                else if($flg == 0)
-                {
-                    $result[$i]['status'] = 0;
                 }
                 else
                 {
