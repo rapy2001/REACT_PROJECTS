@@ -1,5 +1,6 @@
 import React from "react";
 // import {obj} from "../App";
+import {Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import Axios from "axios";
 const LogIn = ({login}) => {
@@ -70,10 +71,11 @@ const LogIn = ({login}) => {
         })
     }
     return (
-        <div className = 'box'>
+        <div className = 'login box'>
             {msg && <h4 className = 'msg'>{msg}</h4>}
             <div className = 'box_1'>
-                <form onSubmit = {handleSubmit}>
+                <form className = 'form' onSubmit = {handleSubmit}>
+                    <h3>Log In</h3>
                     <input 
                         type = 'text' 
                         name = 'username' 
@@ -92,7 +94,8 @@ const LogIn = ({login}) => {
                         onChange = {handleChange} 
                         autoComplete = 'off'
                     />
-                    <button type = 'submit'>Log In</button>
+                    <button className = 'btn 'type = 'submit'>Log In</button>
+                    <h4>Don't have an Account ? Then <Link to = '/register'>Register</Link></h4>
                 </form>
             </div>
             <div className = 'box_2'>

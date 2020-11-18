@@ -12,12 +12,12 @@ const Nav = ({isLoggedIn,logout,crntUser}) => {
         },2500);
     }
     return(
-        <nav>
+        <nav className = 'nav'>
             {msg && <h4 className = 'msg'>{msg}</h4>}
-            <div>
+            <div className = 'nav_box_1'>
                 <Link to = '/'>Chat App</Link>
             </div>
-            <div>
+            <div className = 'nav_box_2'>
                 <Link to = '/register'>Register</Link>
                 <Link to = '/viewUsers'>View Users</Link>
                 {isLoggedIn || <Link to = '/login'>LogIn</Link>}

@@ -167,6 +167,40 @@
                 return $ary;
             }
         }
+
+        public function changeLogStatus($userId)
+        {
+            try
+            {
+                $query = 'UPDATE users SET log_status = 1 WHERE user_id = :userId';
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":userId" => $userId));
+                $ary = array("flg" => 1);
+                return $ary;
+            }
+            catch(Exception $e)
+            {
+                $ary = array("flg" => 0, "msg" => $e->getMessage());
+                return $ary;
+            }
+        }
+
+        public function logout($userId)
+        {
+            try
+            {
+                $query = "UPDATE users SET log_status = 0 WHERE user_id = :userId";
+                $stmt = $this->pdoConnection->prepare($query);
+                $stmt->execute(array(":userId" => $userId));
+                $ary = array("flg" => 1);
+                return $ary;
+            }
+            catch(Exception $e)
+            {
+                $ary = array("flg" => 0, "msg" => $e->getMessage());
+                return $ary;
+            }
+        }
         public function __destruct()
         {
             if($this->established)

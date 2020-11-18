@@ -51,7 +51,7 @@ const Users = ({crntUser,isLoggedIn}) => {
     else
     {   
         return (
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log In to View The Users</h4>
             </div>
         )

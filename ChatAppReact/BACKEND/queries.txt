@@ -28,3 +28,5 @@ create table messages (
     FOREIGN KEY (from_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (to_Id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+alter table users add log_status int not null default 0;

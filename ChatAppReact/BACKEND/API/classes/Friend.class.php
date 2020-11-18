@@ -45,7 +45,7 @@
         {
             try
             {
-                $query = "SELECT users.user_id, users.username, users.image FROM users INNER JOIN friends ON users.user_id = friends.friend_id WHERE friends.user_id = :userId";
+                $query = "SELECT users.user_id, users.username, users.image, users.log_status FROM users INNER JOIN friends ON users.user_id = friends.friend_id WHERE friends.user_id = :userId";
                 $stmt = $this->pdoConnection->prepare($query);
                 $stmt->execute(array(":userId" => $userId));
                 $friends = [];

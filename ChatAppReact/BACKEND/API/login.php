@@ -24,8 +24,18 @@
         {
             if($result['user']['password'] == sha1($data['password']))
             {
-                http_response_code(200);
-                echo json_encode(array("flg" => 1, "user" => $result['user']));
+                $val = $userObj->changeLogStatus($result['user']['user_id']);
+                if($val['flg'] == 1)
+                {
+                    $result['user']['log_status'] = 1;
+                    http_response_code(200);
+                    echo json_encode(array("flg" => 1, "user" => $result['user']));
+                }
+                else
+                {
+                    http_response_code(500);
+                    echo json_encode(array("flg" => 0, "val" => $val));
+                }
             }
             else
             {

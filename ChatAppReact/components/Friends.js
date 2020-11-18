@@ -4,6 +4,7 @@ import Friend from "./Friend";
 import Axios from "axios";
 const Friends = ({crntUser,isLoggedIn}) => {
     // let {crntUser,isLoggedIn} = React.useContext(obj);
+    let interval = '';
     const [msg,setMsg] = React.useState('');
     const [friends,SetFriends] = React.useState([]);
     let val = {userId:crntUser.id};
@@ -32,6 +33,12 @@ const Friends = ({crntUser,isLoggedIn}) => {
     }
     React.useEffect(() => {
         loadFriends();
+        interval = setInterval(function(){
+            loadFriends();
+        },1000)
+        return () => {
+            clearInterval(interval);
+        }
     },[])
     if(isLoggedIn)
     {

@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import {Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 const Register = () => {
     let history = useHistory();
@@ -74,10 +75,11 @@ const Register = () => {
         }
     }
     return (
-        <div className = 'box'>
+        <div className = 'register box'>
             {msg && <h4 className = 'msg'>{msg}</h4>}
             <div className = 'box_1'>
-                <form onSubmit = {handleSubmit}>
+                <form onSubmit = {handleSubmit} className = 'form'>
+                    <h3>Register</h3>
                     <input 
                         type = 'text' 
                         name = 'username' 
@@ -105,7 +107,8 @@ const Register = () => {
                         required = 'required' 
                         autoComplete = 'off'
                     />
-                    <button type = 'submit'>Register</button>
+                    <button className = 'btn' type = 'submit'>Register</button>
+                    <h4>Already have an Account ? Then <Link to = '/login'>Log In</Link></h4>
                 </form>
             </div>
             <div className = 'box_2'>
