@@ -77,7 +77,7 @@ const Texts = function({crntUser,isLoggedIn}) {
     React.useEffect(() => {
         interval = setInterval(function(){
             loadMessages();
-        },2000);
+        },500);
         return () => {
             clearInterval(interval);
         }
@@ -87,21 +87,25 @@ const Texts = function({crntUser,isLoggedIn}) {
         if(messages.length > 0)
         {
             return (
-                <div>
-                    {msg && <h4>{msg}</h4>}
-                    <div>
-                        {
-                            messages.map((message,index) => {
-                                return <Message key = {message.message_id} {...message}/>
-                            })
-                        }
+                <div className = 'texts'>
+                    {msg && <h4 className = 'msg'>{msg}</h4>}
+                    <div className = 'texts_box'>
+                        <h1>Your Messages</h1>
+                        <div className = 'texts_container'>
+                            {
+                                messages.map((message,index) => {
+                                    return <Message crntUser = {crntUser} key = {message.message_id} {...message}/>
+                                })
+                            }
+                        </div>
+                        <div className = 'texts_form_div'>
+                            <form onSubmit = {handleSubmit}>
+                                <input autocomplete = 'off' type = 'text' name = 'text' value = {message} placeholder = 'Message' onChange = {handleChange}/>
+                                <input type = 'submit' value = 'send'/>
+                            </form>
+                        </div>
                     </div>
-                    <div>
-                        <form onSubmit = {handleSubmit}>
-                            <input type = 'text' name = 'text' value = {message} placeholder = 'Message' onChange = {handleChange}/>
-                            <input type = 'submit' value = 'send'/>
-                        </form>
-                    </div>
+                    
                 </div>
             )
         }
@@ -123,7 +127,7 @@ const Texts = function({crntUser,isLoggedIn}) {
     else
     {
         return (
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log In to view Messages</h4>
             </div>
         )

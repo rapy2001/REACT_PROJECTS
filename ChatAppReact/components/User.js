@@ -35,14 +35,14 @@ const User = ({username,image,user_id,status,getUsersFunction,crntUser}) => {
         })    
     }
     return (
-        <div>
-            {msg && <h4>{msg}</h4>}
-            <div>
+        <div className = 'user'>
+            {msg && <h4 className = 'msg'>{msg}</h4>}
+            <div className = 'user_box_1'>
                 <img src = {image} alt = {username}/>
             </div>
-            <div>
+            <div className = 'user_box_2'>
                 <h4>{username}</h4>
-                {status == 1 ? null : <button type = 'button' onClick = {() => {request(user_id)}}>Send Friend Request</button>}
+                {status == 1 ? null : <button className = 'btn' type = 'button' onClick = {() => {request(user_id)}}>Send Friend Request</button>}
             </div>
         </div>
     )

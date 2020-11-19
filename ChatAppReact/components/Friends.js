@@ -45,20 +45,24 @@ const Friends = ({crntUser,isLoggedIn}) => {
         if(friends.length > 0)
         {
             return(
-                <div>
-                    {msg && <h4>{msg}</h4>}
-                    {
-                        friends.map((friend) => {
-                            return <Friend key = {friend.user_id} {...friend}/>
-                        })
-                    }
+                <div className = 'users'>
+                    {msg && <h4 className = 'msg'>{msg}</h4>}
+                    <div className = 'users_box'>
+                        <h1>Your Friends</h1>
+                        {
+                            friends.map((friend) => {
+                                return <Friend crntUser = {crntUser}key = {friend.user_id} {...friend}/>
+                            })
+                        }
+                    </div>
+                    
                 </div>
             )
         }
         else
         {
             return (
-                <div>
+                <div className = 'empty'>
                     <h4>No Friends Yet ...</h4>
                 </div>
             )
@@ -67,7 +71,7 @@ const Friends = ({crntUser,isLoggedIn}) => {
     else
     {
         return (
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log in to View Friends</h4>
             </div>
         )

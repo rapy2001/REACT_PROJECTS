@@ -31,19 +31,24 @@ const Requests = ({crntUser,isLoggedIn}) => {
         if(requests.length > 0)
         {
             return (
-                <div>
-                    {
-                        requests.map((request,index) => {
-                            return (<Request key = {index} {...request} loadRequests = {loadRequests}/>);
-                        })
-                    }
+                <div className = 'requests'>
+                    
+                    <div className = 'users_box'>
+                        <h1>Friend Requests</h1>
+                        {
+                            requests.map((request,index) => {
+                                return (<Request crntUser = {crntUser} key = {index} {...request} loadRequests = {loadRequests}/>);
+                            })
+                        }
+                    </div>
+                    
                 </div>
             )
         }
         else
         {
             return (
-                <div>
+                <div className = 'empty'>
                     <h4>No Friend Requests Yet</h4>
                 </div>
             )
@@ -53,7 +58,7 @@ const Requests = ({crntUser,isLoggedIn}) => {
     else
     {
         return (
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log In to View Friend Requests</h4>
             </div>
         )

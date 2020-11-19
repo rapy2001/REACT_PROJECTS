@@ -40,11 +40,16 @@ const Users = ({crntUser,isLoggedIn}) => {
     {
         let ary = users.map((user) => {
             if(user.user_id !== crntUser.id)
-                return <User key = {user.user_id} {...user} getUsersFunction = {getUsersFunction}/>
+                return <User crntUser = {crntUser} key = {user.user_id} {...user} getUsersFunction = {getUsersFunction}/>
         })
+        // console.log(users);
         return (
-            <div>
-                {ary.length > 0 ? ary : <h4>No Users Yet</h4>}
+            <div className = 'users'>
+                <div className = 'users_box'>
+                    <h1>Our Users</h1>
+                    {ary.length > 0 ? ary : <h4>No Users Yet</h4>}
+                </div>
+                
             </div>
         )
     }

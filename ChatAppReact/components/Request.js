@@ -64,15 +64,15 @@ const Request = ({user_id,username,image,loadRequests,crntUser}) => {
         })
     }
     return (
-        <div>
-            {msg && <h4>{msg}</h4>}
-            <div>
+        <div className = 'user'>
+            {msg && <h4 className = 'msg'>{msg}</h4>}
+            <div className = 'user_box_1'>
                 <img src ={image} alt = {username}/>
             </div>
-            <div>
-                <h3>{username}</h3>
-                <button type = 'button' onClick = {acceptRequest}>Accept Request</button>
-                <button type = 'button' onClick = {declineRequest}>Decline</button>
+            <div className = 'user_box_2'>
+                <h4>{username}</h4>
+                <button className = 'btn' type = 'button' onClick = {acceptRequest}>Accept Request</button>
+                <button className = 'btn' type = 'button' onClick = {declineRequest}>Decline</button>
             </div>
         </div>
     )

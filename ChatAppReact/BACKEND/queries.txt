@@ -30,3 +30,5 @@ create table messages (
 );
 
 alter table users add log_status int not null default 0;
+
+insert into users values (0,'Admin',SHA('12345'),'https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',0);

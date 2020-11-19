@@ -201,6 +201,24 @@
                 return $ary;
             }
         }
+
+        public function seed()
+        {
+            try
+            {
+                $query = "DELETE FROM users WHERE username <> 'Admin'";
+                $stmt = $this->pdoConnection->query($query);
+                $array = array("flg" => 1);
+                return $array;
+            }
+            catch(Error $e)
+            {
+                $array = array("flg" => 0 , "msg" => $e->getMessage());
+                return $array;
+            }
+        }
+
+        
         public function __destruct()
         {
             if($this->established)

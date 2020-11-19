@@ -30,7 +30,7 @@
                 }
                 else if($flg == 1)
                 {
-                    $result[$i]['status'] = 1;
+                    $result[$i]['status'] = 1;  
                 }
                 else
                 {
