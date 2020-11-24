@@ -7,9 +7,44 @@ const Request = ({user_id,username,image,loadRequests,crntUser}) => {
     let data = JSON.stringify(val);
     const [msg,setMsg] = React.useState('');
     const acceptRequest = () => {
-        Axios.post('http://localhost/projects/ChatApp/API/acceptFriendRequest.php',data)
+        // Axios.post('http://localhost/projects/ChatApp/API/acceptFriendRequest.php',data)
+        // .then((response) => {
+        //     if(response.data.flg == 1)
+        //     {
+                // setMsg('Request Accespted');
+                // setTimeout(function(){
+                //     setMsg('');
+                // },2500);
+                // setTimeout(function(){
+                //     loadRequests();
+                // },3500);
+        //     }
+        //     else
+        //     {
+                // setMsg('Internal Server Error');
+                // setTimeout(function(){
+                //     setMsg('');
+                // },2500);
+        //     }
+        // })
+        // .catch((err) => {
+            // setMsg('Error while accepting the friend Request');
+            // setTimeout(function(){
+            //     setMsg('');
+            // },2500);
+        // })
+        fetch('http://192.168.0.6:5000/acceptFriendRequest',{
+            headers:{
+                'Content-Type':'application/json'
+            },
+            method:'POST',
+            body:JSON.stringify({userId:crntUser.id,friendId:user_id})
+        })
         .then((response) => {
-            if(response.data.flg == 1)
+            return response.json();
+        })
+        .then((data) => {
+            if(data.flg === 1)
             {
                 setMsg('Request Accespted');
                 setTimeout(function(){
@@ -36,11 +71,44 @@ const Request = ({user_id,username,image,loadRequests,crntUser}) => {
     }
 
     const declineRequest = () => {
-        Axios.post("http://localhost/projects/ChatApp/API/deleteRequest.php",data)
-        .then((response) => {
-            if(response.data.flg === 1)
+        // Axios.post("http://localhost/projects/ChatApp/API/deleteRequest.php",data)
+        // .then((response) => {
+        //     if(response.data.flg === 1)
+        //     {
+                // setMsg('Request declined');
+                // setTimeout(function(){
+                //     setMsg('');
+                // },2500);
+                // setTimeout(function(){
+                //     loadRequests();
+                // },3500);
+        //     }
+        //     else
+        //     {
+                // setMsg('Internal Server Error');
+                // setTimeout(function(){
+                //     setMsg('');
+                // },2500);
+        //     }
+        // })
+        // .catch((err) => {
+            // setMsg('Error while declining the friend Request');
+            // setTimeout(function(){
+            //     setMsg('');
+            // },2500);
+        // })
+        fetch('http://192.168.0.6:5000/deleteFriendRequest',{
+            headers:{
+                'Content-Type':'application/json'
+            },
+            method:'POST',
+            body:JSON.stringify({userId:crntUser.id,friendId:user_id})
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if(data.flg === 1)
             {
-                setMsg('Request declined');
+                setMsg('Request deleted');
                 setTimeout(function(){
                     setMsg('');
                 },2500);

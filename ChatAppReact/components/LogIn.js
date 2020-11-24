@@ -21,14 +21,80 @@ const LogIn = ({login}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let data = JSON.stringify(user);
-        Axios.post("http://localhost/projects/ChatApp/API/login.php",data)
-        .then((response) => {
-            if(response.data.flg == 1)
+        let alternateData = user;
+        let link1 = 'http://localhost/projects/ChatApp/API/login.php';
+        let link2 = 'http://192.168.0.6:5000/login';
+        // Axios.post(link1,data)
+        // .then((response) => {
+        //     if(response.data.flg == 1)
+        //     {
+        //         setMsg('Login Successfull');
+        //         login({
+        //             username:response.data.user.username,
+        //             id:response.data.user.user_id
+        //         })
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //         setTimeout(function(){
+        //             history.push('/');
+        //         },3500);
+        //         setUser({
+        //             username:'',
+        //             password:''
+        //         })
+        //     }
+        //     else if(response.data.flg == 2)
+        //     {
+        //         setMsg('Username does not exists. Please register');
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //         setTimeout(function(){
+        //             history.push('/register');
+        //         },3500);
+        //     }
+        //     else if(response.data.flg == 3)
+        //     {
+        //         setMsg('Password is Wrong');
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //         setUser({
+        //             ...user,
+        //             password:''
+        //         })
+        //     }
+        //     else
+        //     {
+        //         setMsg('INTERNAL SERVER ERROR');
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //     }
+        // })
+        // .catch((err) => {
+        //     setMsg('No Response from Server');
+        //     setTimeout(function(){
+        //         setMsg('');
+        //     },2500);
+        // })
+        fetch(link2,{
+            headers:{
+                'Content-Type':'application/json'
+            },
+            method:'POST',
+            body:JSON.stringify(alternateData)
+        })
+        .then((response) => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.flg == 1)
             {
                 setMsg('Login Successfull');
                 login({
-                    username:response.data.user.username,
-                    id:response.data.user.user_id
+                    username:data.user.username,
+                    id:data.user.user_id
                 })
                 setTimeout(function(){
                     setMsg('');
@@ -41,7 +107,7 @@ const LogIn = ({login}) => {
                     password:''
                 })
             }
-            else if(response.data.flg == 2)
+            else if(data.flg== 2)
             {
                 setMsg('Username does not exists. Please register');
                 setTimeout(function(){
@@ -51,7 +117,7 @@ const LogIn = ({login}) => {
                     history.push('/register');
                 },3500);
             }
-            else if(response.data.flg == 3)
+            else if(data.flg == 3)
             {
                 setMsg('Password is Wrong');
                 setTimeout(function(){
@@ -61,6 +127,13 @@ const LogIn = ({login}) => {
                     ...user,
                     password:''
                 })
+            }
+            else
+            {
+                setMsg('INTERNAL SERVER ERROR');
+                setTimeout(function(){
+                    setMsg('');
+                },2500);
             }
         })
         .catch((err) => {

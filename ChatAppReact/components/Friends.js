@@ -10,11 +10,35 @@ const Friends = ({crntUser,isLoggedIn}) => {
     let val = {userId:crntUser.id};
     let data = JSON.stringify(val);
     const loadFriends = () => {
-        Axios.post("http://localhost/projects/ChatApp/API/getFriends.php",data)
-        .then((response) => {
-            if(response.data.flg == 1)
+        // Axios.post("http://localhost/projects/ChatApp/API/getFriends.php",data)
+        // .then((response) => {
+            // if(response.data.flg == 1)
+            // {
+            //     SetFriends(response.data.friends);
+            // }
+            // else
+            // {
+            //     setMsg('Error While Loading the Friends');
+            //     setTimeout(function(){
+            //         setMsg('');
+            //     },2500);
+            // }
+        // })
+        // .catch((err) => {
+        //     setMsg('Internal Server Error');
+        //     setTimeout(function(){
+        //         setMsg('');
+        //     },2500);
+        // })
+        fetch('http://192.168.0.6:5000/getFriends/' + crntUser.id,{
+            method:'GET',
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log(data);
+            if(data.flg === 1)
             {
-                SetFriends(response.data.friends);
+                SetFriends(data.users);
             }
             else
             {
@@ -23,12 +47,13 @@ const Friends = ({crntUser,isLoggedIn}) => {
                     setMsg('');
                 },2500);
             }
+
         })
         .catch((err) => {
-            setMsg('Internal Server Error');
+            setMsg('No Response From the Server');
             setTimeout(function(){
                 setMsg('');
-            },2500);
+            },2500)
         })
     }
     React.useEffect(() => {

@@ -9,15 +9,41 @@ const Requests = ({crntUser,isLoggedIn}) => {
     let val = {id:crntUser.id};
     let data = JSON.stringify(val);
     const loadRequests = () => {
-        Axios.post("http://localhost/projects/ChatApp/API/getFriendRequests.php",data)
+        // Axios.post("http://localhost/projects/ChatApp/API/getFriendRequests.php",data)
+        // .then((response) => {
+        //     if(response.data.flg == 1)
+        //     {
+                // setRequests(response.data.requests);
+        //     } 
+        // })
+        // .catch((err) => {
+        //     setMsg('Error');
+        //     setTimeout(function(){
+        //         setMsg('');
+        //     },2500);
+        // })
+        fetch('http://192.168.0.6:5000/getFriendRequests/' + crntUser.id,{
+            method:'GET'
+        })
         .then((response) => {
-            if(response.data.flg == 1)
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            if(data.flg === 1)
             {
-                setRequests(response.data.requests);
-            } 
+                setRequests(data.requests);
+            }
+            else
+            {
+                setMsg('Error While getting the Friend Requests');
+                setTimeout(function(){
+                    setMsg('');
+                },2500);
+            }
         })
         .catch((err) => {
-            setMsg('Error');
+            setMsg('Could not Load the Friend Requests');
             setTimeout(function(){
                 setMsg('');
             },2500);

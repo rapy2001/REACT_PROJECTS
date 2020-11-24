@@ -11,28 +11,64 @@ const User = ({username,image,user_id,status,getUsersFunction,crntUser}) => {
         let friend_id = user_id;
         let obj = {userId:userId,friendId:friend_id};
         let data = JSON.stringify(obj);
-        console.log(data);
-        Axios.post("http://localhost/projects/ChatApp/API/sendFriendRequest.php",data)
+        // console.log(data);
+        // Axios.post("http://localhost/projects/ChatApp/API/sendFriendRequest.php",data)
+        // .then((response) => {
+        //     if(response.data.flg == 1)
+        //     {
+        //         setMsg('Friend Request Send Successfully');
+        //         getUsersFunction();
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //         setTimeout(function(){
+        //             history.push('/');
+        //         },3500);
+        //     }
+        // })  
+        // .catch((err) => {
+        //     setMsg('Error while sending the Friend Request');
+        //     console.log(err);
+        //     setTimeout(function(){
+        //         setMsg('');
+        //     },2500);
+        // })    
+        fetch('http://192.168.0.6:5000/sendFriendRequest',{
+            headers:{
+                'Content-Type':'application/json'
+            },
+            method:'POST',
+            body:JSON.stringify({userId:crntUser.id,friendId:user_id})
+        })
         .then((response) => {
-            if(response.data.flg == 1)
-            {
+            // console.log(response);
+            return response.json();
+            
+        })
+        .then((data) => {
+            console.log(data);
+            if(data.flg === 1)
+            {  
                 setMsg('Friend Request Send Successfully');
                 getUsersFunction();
                 setTimeout(function(){
                     setMsg('');
                 },2500);
-                setTimeout(function(){
-                    history.push('/');
-                },3500);
             }
-        })  
+            else
+            {
+                setMsg('Error While sending the Friend Request');
+                setTimeout(function(){
+                    setMsg('');
+                },2500);
+            }
+        })
         .catch((err) => {
-            setMsg('Error while sending the Friend Request');
-            console.log(err);
+            setMsg('No Response From the Server');
             setTimeout(function(){
                 setMsg('');
-            },2500);
-        })    
+            },2500);   
+        })
     }
     return (
         <div className = 'user'>

@@ -9,26 +9,51 @@ const Users = ({crntUser,isLoggedIn}) => {
     let object = {id:crntUser.id};
     let data = JSON.stringify(object);
     const getUsersFunction = () => {
-        Axios.post("http://localhost/projects/ChatApp/API/getUsers.php",data)
-            .then((response) => {
-                if(response.data.flg == 1)
-                {
-                    setUsers(response.data.users);
-                }   
-                else
-                {
-                    setMsg("Internal Server Error");
-                    setTimeout(function(){
-                        setMsg('');
-                    },2500);
-                }
-            })
-            .catch((err) => {
-                setMsg("No Response from the Server");
+        // Axios.post("http://localhost/projects/ChatApp/API/getUsers.php",data)
+        //     .then((response) => {
+        //         if(response.data.flg == 1)
+        //         {
+        //             setUsers(response.data.users);
+        //         }   
+        //         else
+        //         {
+        //             setMsg("Internal Server Error");
+        //             setTimeout(function(){
+        //                 setMsg('');
+        //             },2500);
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         setMsg("No Response from the Server");
+        //         setTimeout(function(){
+        //             setMsg('');
+        //         },2500);
+        //     })
+        fetch(('http://192.168.0.6:5000/getUsers/' + crntUser.id),{
+            method:'GET'
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            if(data.flg === 1)
+            {
+                setUsers(data.users);
+            }
+            else
+            {
+                setMsg('Internal Server Error');
                 setTimeout(function(){
                     setMsg('');
                 },2500);
-            })
+            }
+        })
+        .catch((err) => {
+            setMsg('No Response from the Server');
+            setTimeout(function(){
+                setMsg('');
+            },2500);
+        })
     }
     React.useEffect(() => {
         if(isLoggedIn)

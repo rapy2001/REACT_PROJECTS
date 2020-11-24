@@ -29,8 +29,11 @@ const Register = () => {
         }
         else
         {
-            let data = JSON.stringify(user);
-            Axios.post("http://localhost/projects/ChatApp/API/addUser.php",data)
+            let data = JSON.stringify(user); // for PHP + MYSQL BACKEND
+            let alternateData = user; // for NODE JS + MYSQL BACKEND
+            let link1 = 'http://localhost/projects/ChatApp/API/addUser.php';
+            let link2 = 'http://192.168.0.6:5000/register';
+            Axios.post(link2,alternateData) // chnage second arg depending on the backend used
             .then((response) => {
                 if(response.data.flg == 1)
                 {
