@@ -1,0 +1,7 @@
+create table users (
+    user_id int primary key auto_increment,
+    username varchar(200) not null default 'EMPTY',
+    password varchar(255) not null,
+    image text default 'https://cdn.dribbble.com/users/171004/screenshots/14304355/media/c97f69f5044e73bfd831212ef0cad7fe.png',
+    description text not null default 'EMPTY'
+);
