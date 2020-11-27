@@ -51,10 +51,12 @@ const AddPost = (props) => {
         })
     }
     return (
-        <div>
-            <div>
-                {msg && <h4>{msg}</h4>}
-                <form onSubmit = {handleSubmit}>
+        <div className = 'post'>
+            <h3 onClick = {() => {props.toggleForm(0)}}><i className = 'fa fa-times post_cut'></i></h3>
+            <div className = 'post_container'>
+                {msg && <h4 className = 'msg'>{msg}</h4>}
+                <form onSubmit = {handleSubmit} className = 'form'>
+                    <h3>Add a Post</h3>
                     <input
                         type = 'text'
                         name = 'title'
@@ -79,7 +81,7 @@ const AddPost = (props) => {
                     >
 
                     </textarea>
-                    <button type = 'Submit'>Add Post</button>
+                    <button className = 'btn' type = 'Submit'>Add Post</button>
                 </form>
             </div>
         </div>

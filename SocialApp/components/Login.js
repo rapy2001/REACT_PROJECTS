@@ -82,10 +82,11 @@ const Login = ({login}) => {
     }
 
     return(
-        <div>
-            {msg && <h4>{msg}</h4>}
-            <div>
-                <form onSubmit = {handleSubmit}>
+        <div className = 'login box'>
+            {msg && <h4 className = 'msg'>{msg}</h4>}
+            <div className = 'box_1'>
+                <form className = 'form' onSubmit = {handleSubmit}>
+                    <h3>Log In</h3>
                     <input
                         type = 'text'
                         placeholder = 'Your Username'
@@ -102,13 +103,13 @@ const Login = ({login}) => {
                         autoComplete = 'off' 
                         onChange = {handleChange}
                     />
-                    <button type = 'submit'> 
+                    <button className = 'btn' type = 'submit'> 
                         Log In
                     </button>
                     <h4>Don't have an account ? Then <Link to = '/register'>Register</Link></h4>
                 </form>
             </div>
-            <div>
+            <div className = 'box_2'>
                 <h3>Social App</h3>
             </div>
         </div>

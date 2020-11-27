@@ -12,6 +12,7 @@ let Request = require('./classes/Request');
 let Friend = require('./classes/Friend');
 let Post = require('./classes/Post');
 let Notification = require('./classes/Notification');
+let Like = require('./classes/Like');
 //register route 
 let obj = null;
 app.post('/register',(req,res) => {
@@ -199,7 +200,31 @@ app.post('/addPost',(req,res) => {
         
     }
     addPost();
-})
+});
+
+
+app.get('/getFeed/:userId',(req,res) => {
+    let postObj = Post.createObj();
+    let getFeed = async () => {
+        let promise = await postObj.getUserPosts(req.params.userId);
+        if(promise.flg === 1)
+        {
+            let likeObj = Like.createObj();
+            // console.log(promise);
+            for(let i = 0; i<promise.posts.length; i++)
+            {
+                let newPromise = await likeObj.getPostLikes(promise.posts[i].post_id);
+                promise.posts[i].likes = newPromise.likes;
+            }               
+            res.json({flg:1,posts:promise.posts});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    getFeed();
+});
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);
 });

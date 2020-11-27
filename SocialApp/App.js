@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
+import './public/style.css';
 import Homepage from "./components/Homepage";
 import Nav from "./components/Nav";
 import Register from "./components/Register";
@@ -7,6 +8,9 @@ import Login from "./components/Login";
 import ViewUsers from "./components/ViewUsers";
 import ViewFriendRequest from "./components/ViewFriendRequest";
 import AddPost from "./components/AddPost";
+import Profile from "./components/Profile";
+import Feed from "./components/Feed";
+import Footer from "./components/Footer";
 const App = () => {
     const [isLoggedIn,setIsLoggedIn] = React.useState(false);
     const [showPostForm,setShowPostForm] = React.useState(false);
@@ -33,7 +37,8 @@ const App = () => {
         setCrntUser({
             userId:-1,
             username:'',
-            image:''
+            image:'',
+            description:''
         })
         setIsLoggedIn(false);
     }
@@ -42,6 +47,7 @@ const App = () => {
         <div>
             <Router>
                 <Nav crntUser = {crntUser} isLoggedIn = {isLoggedIn} login = {login} logout = {logout} toggleForm = {toggleForm}/>
+                {isLoggedIn && <Profile crntUser = {crntUser}/>}
                 {showPostForm === true && isLoggedIn === true ?  <AddPost crntUser = {crntUser} isLoggedIn = {isLoggedIn} toggleForm = {toggleForm}/> : null}
                 <Switch>
                     <Route path = '/' exact>
@@ -59,8 +65,12 @@ const App = () => {
                     <Route path = '/viewFriendRequest' exact>
                         <ViewFriendRequest crntUser = {crntUser} isLoggedIn = {isLoggedIn}/>
                     </Route>
+                    <Route path = '/viewFeed' exact>
+                        <Feed crntUser = {crntUser} isLoggedIn = {isLoggedIn}/>
+                    </Route>
                 </Switch>
             </Router>
+            <Footer />
         </div>
     )
 }

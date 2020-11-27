@@ -58,6 +58,41 @@ class Post
             return err;
         }
     }
+
+    getUserPosts = async (userId) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = `
+                    SELECT posts.user_id,posts.post_id,posts.title,posts.image,posts.description,posts.created_at,users.username FROM posts INNER JOIN friend ON posts.user_id = friend.friend_id INNER JOIN users ON friend.friend_id = users.user_id WHERE friend.user_id = ? OR posts.user_id = ?;
+                `;
+                connection.query(query,[userId,userId],async (err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(results.length > 0)
+                        {
+                            // console.log(results);
+                            resolve({flg:1,posts:results});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                });
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the Post ' + err.message);
+            return err;
+        }
+    }
 }
 
 

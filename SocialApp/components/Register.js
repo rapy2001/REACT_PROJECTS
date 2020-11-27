@@ -74,10 +74,11 @@ const Register = () => {
         })
     }
     return(
-        <div>
-            {msg && <h4>{msg}</h4>}
-            <div>
-                <form onSubmit = {handleSubmit}>
+        <div className = 'register box'>
+            {msg && <h4 className = 'msg'>{msg}</h4>}
+            <div className = 'box_1'>
+                <form onSubmit = {handleSubmit} className = 'form'>
+                    <h3>Register</h3>
                     <input
                         type = 'text'
                         placeholder = 'username'
@@ -109,11 +110,11 @@ const Register = () => {
                     >
 
                     </textarea>
-                    <button type = 'submit'>Register</button>
+                    <button className = 'btn'type = 'submit'>Register</button>
                     <h4>Already have an Account then <Link to = '/login'>Log In</Link></h4>
                 </form>
             </div>
-            <div>
+            <div className = 'box_2'>
                 <h3>SocialApp</h3>
             </div>
         </div>

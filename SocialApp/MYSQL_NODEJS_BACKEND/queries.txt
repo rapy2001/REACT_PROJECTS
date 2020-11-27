@@ -41,3 +41,13 @@ create table notifications (
 );
 
 alter table notifications add status int not null default 0;
+
+
+SELECT posts.user_id,posts.post_id,posts.title,posts.image,posts.description,posts.created_at,users.username FROM posts INNER JOIN friend ON posts.user_id = friend.friend_id INNER JOIN users ON friend.friend_id = users.user_id WHERE friend.user_id = 7 OR posts.user_id = 7;
+create table likes (
+    like_id int not null primary key auto_increment,
+    user_id int not null,
+    post_id int not null,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE
+);
