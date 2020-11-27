@@ -5,3 +5,19 @@ create table users (
     image text default 'https://cdn.dribbble.com/users/171004/screenshots/14304355/media/c97f69f5044e73bfd831212ef0cad7fe.png',
     description text not null default 'EMPTY'
 );
+
+192.168.0.6
+
+create table friend (
+    user_id int not null,
+    friend_id int not null,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(friend_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+create table requests (
+    from_id int not null,
+    to_id int not null,
+    FOREIGN KEY(from_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(to_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

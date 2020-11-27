@@ -9,7 +9,9 @@ const Nav = (props) => {
             <div>
                 <Link to = '/register'>Register</Link>
                 {props.isLoggedIn || <Link to = '/login'>Log In</Link>}
-                {props.isLoggedIn && <button onClick = {() => props.logout()}>LogOut (props.crntUser.username)</button>}
+                {props.isLoggedIn && <button onClick = {() => props.logout()}>LogOut ({props.crntUser.username})</button>}
+                {props.isLoggedIn && <Link to = '/viewUsers'>View Users</Link>}
+                {props.isLoggedIn && <Link to = '/viewFriendRequest'>View Friend Requests</Link>}
             </div>
         </nav>
     )
