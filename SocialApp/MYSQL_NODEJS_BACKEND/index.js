@@ -10,6 +10,8 @@ app.use(express.urlencoded({extended:true}));
 let User = require('./classes/User');
 let Request = require('./classes/Request');
 let Friend = require('./classes/Friend');
+let Post = require('./classes/Post');
+let Notification = require('./classes/Notification');
 //register route 
 let obj = null;
 app.post('/register',(req,res) => {
@@ -152,6 +154,51 @@ app.post('/rejectFriendRequest',(req,res) => {
         }
     }
     rejectFriendRequest();
+})
+
+app.post('/addPost',(req,res) => {
+   
+    let postObj = Post.createObj();
+    let notifObj = Notification.createObj();
+    let friendObj = Friend.createObj();
+    let promise1 = null;
+    let promise2 = null;
+    let promise3 = null;
+    let addPost = async () => {
+        // console.log(req.body);
+        promise1 = await postObj.insertPost(req.body.userId,req.body.title,req.body.description,req.body.image);
+        if(promise1.flg === 1)
+        {
+            promise2 = await friendObj.getUserFriends(req.body.userId);
+            if(promise2.flg === 1)
+            {
+                for(let i = 0; i<promise2.friends.length; i++)
+                {
+                    promise3 = await notifObj.insertNotification(promise2.friends[i].user_id,promise1.postId,1);
+                    if(promise3.flg === 1)
+                    {
+                        res.json({flg:1});
+                    }
+                    else
+                    {
+                        console.log('world');
+                        res.json({flg:0});
+                    }
+                }
+            }
+            else
+            {
+                console.log(promise2);
+                res.json({flg:0});
+            }
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+        
+    }
+    addPost();
 })
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);

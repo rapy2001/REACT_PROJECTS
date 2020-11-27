@@ -1,21 +1,22 @@
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'social_app'
-})
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//     host:'localhost',
+//     user:'root',
+//     password:'',
+//     database:'social_app'
+// })
 
-connection.connect((err) => {
-    if(err)
-    {
-        console.log(err.message);
-    }
-    else
-    {
-        console.log(connection.state);
-    }
-});
+// connection.connect((err) => {
+//     if(err)
+//     {
+//         console.log(err.message);
+//     }
+//     else
+//     {
+//         console.log(connection.state);
+//     }
+// });
+const connection = require('../connection/connection');
 let obj = null;
 class Friend
 {
@@ -83,6 +84,38 @@ class Friend
         catch(err)
         {
             console.log('error while accepting the Friend Request ' + err.message);
+            return err;
+        }
+    }
+
+    getUserFriends = async (userId) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'SELECT users.username,users.image,users.user_id FROM users INNER JOIN friend ON users.user_id = friend.friend_id WHERE friend.user_id = ?;';
+                connection.query(query,[userId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(results.length > 0)
+                        {
+                            resolve({flg:1,friends:results});
+                        }
+                        else
+                        {
+                            resolve({flg:1,friends:[]});
+                        }
+                    }
+                })
+            });
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the users friends' + err.message);
             return err;
         }
     }

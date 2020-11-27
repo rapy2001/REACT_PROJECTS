@@ -1,21 +1,22 @@
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'social_app'
-});
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//     host:'localhost',
+//     user:'root',
+//     password:'',
+//     database:'social_app'
+// });
 
-connection.connect((err) => {
-    if(err)
-    {
-        console.log(err.message);
-    }
-    else
-    {
-        console.log(connection.state);
-    }
-})
+// connection.connect((err) => {
+//     if(err)
+//     {
+//         console.log(err.message);
+//     }
+//     else
+//     {
+//         console.log(connection.state);
+//     }
+// })
+const connection = require('../connection/connection');
 let obj = null;
 
 class Request

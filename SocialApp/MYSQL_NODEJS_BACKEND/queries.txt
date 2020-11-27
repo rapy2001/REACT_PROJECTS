@@ -21,3 +21,23 @@ create table requests (
     FOREIGN KEY(from_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY(to_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+create table posts (
+    post_id int not null primary key auto_increment,
+    user_id int not null,
+    title text not null default 'TITLE',
+    description text not null default 'DESCRIPTION',
+    image text not null default 'https://cdn.dribbble.com/users/6099628/screenshots/14468614/media/5942f01b1839b2333692960ff04f65b1.png',
+    created_at timestamp not null default NOW(),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+create table notifications (
+    notif_id int not null primary key auto_increment,
+    user_id int not null,
+    type int not null default -1,
+    data int not null,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+alter table notifications add status int not null default 0;

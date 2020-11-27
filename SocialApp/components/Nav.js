@@ -12,6 +12,7 @@ const Nav = (props) => {
                 {props.isLoggedIn && <button onClick = {() => props.logout()}>LogOut ({props.crntUser.username})</button>}
                 {props.isLoggedIn && <Link to = '/viewUsers'>View Users</Link>}
                 {props.isLoggedIn && <Link to = '/viewFriendRequest'>View Friend Requests</Link>}
+                {props.isLoggedIn && <button onClick = {() => props.toggleForm(1)}>Create Post</button>}
             </div>
         </nav>
     )
