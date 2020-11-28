@@ -1,12 +1,49 @@
 import React from "react";
-
-const FullPost = ({postId,togglePost}) => {
+import AddComment from "./AddComment";
+const FullPost = ({postId,togglePost,crntUser}) => {
     let interval = null;
     const [post,setPost] = React.useState([]);
+    const [comments,setComments] = React.useState([]);
+    const [commentLoadError,setCommentLoadError] = React.useState(false); 
+    const [toggleForm,setToggleForm] = React.useState(false);
+    const toggleCommentForm = (flg) => {
+        if(flg === 1)
+        {
+            setToggleForm(true);
+        }
+        else
+        {
+            setToggleForm(false);
+        }
+    }
     const [error,setError] = React.useState({
         flg:false,
         message:''
     });
+    const fetchComments = () => {
+        fetch(`http://192.168.0.6:5000/getComments/${postId}`,{
+            method:'GET'
+        })
+        .then((response) => {
+            return  response.json();
+        })
+        .then((data) => {
+            
+            if(data.flg === 1)
+            {
+                console.log(data.comments);
+                setComments(data.comments);
+            }
+            else
+            {
+                setCommentLoadError(true);
+            }
+        })
+        .catch((err) => {
+            console.log('hello');
+            setCommentLoadError(true);
+        })
+    }
     const fetchPost = () => {
         fetch(`http://localhost:5000/getPost/${postId}`,{
             method:'GET'
@@ -35,8 +72,10 @@ const FullPost = ({postId,togglePost}) => {
     }
     React.useEffect(() => {
         fetchPost();
+        fetchComments();
         interval = setInterval(function(){
             fetchPost();
+            fetchComments();
         },3000)
         return () => {
             clearInterval(interval);
@@ -59,6 +98,7 @@ const FullPost = ({postId,togglePost}) => {
     {
         return (
             <div>
+                {toggleForm && <AddComment crntUser = {crntUser} postId = {postId} toggleCommentForm = {toggleCommentForm}/>}
                 <div>
                     <h4 onClick = {() => {togglePost(0,-1)}}><i className = 'fa fa-times'></i></h4>
                 </div>
@@ -77,6 +117,9 @@ const FullPost = ({postId,togglePost}) => {
                     </div>
                     <div>
                         <h2>Comments:</h2>
+                        <button onClick = {() => {toggleCommentForm(1)}}>Add a Comment</button>
+                        {commentLoadError && <h4>Error While loading the Comments</h4>}
+                        {comments.length > 0 ? <div>comments div</div>:<h4>No Comments Yet</h4>}
                     </div>
                 </div>
             </div>

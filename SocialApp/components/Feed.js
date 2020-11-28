@@ -69,7 +69,7 @@ const Feed = ({crntUser,isLoggedIn}) => {
                     <div className = 'feed_box'>
                         <h1>Your Posts</h1>
                         {msg && <h4 className = 'msg'>{msg}</h4>}
-                        {showPost.flg && <FullPost postId = {showPost.id} togglePost = {togglePost}/>}
+                        {showPost.flg && <FullPost crntUser = {crntUser} postId = {showPost.id} togglePost = {togglePost}/>}
                         <div className = 'posts_box'>
                             {postAry}
                         </div>

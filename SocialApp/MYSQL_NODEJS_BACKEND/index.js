@@ -13,6 +13,7 @@ let Friend = require('./classes/Friend');
 let Post = require('./classes/Post');
 let Notification = require('./classes/Notification');
 let Like = require('./classes/Like');
+let Comment = require('./classes/Comment');
 //register route 
 let obj = null;
 app.post('/register',(req,res) => {
@@ -282,6 +283,38 @@ app.get('/getPost/:postId',(req,res) =>{
         }
     }
     getPost();
+})
+
+app.post('/addComment',(req,res) => {
+    let commentObj = Comment.createObj();
+    const addComment = async () => {
+        let promise = await commentObj.addComment(req.body.userId,req.body.postId,req.body.commentText);
+        if(promise.flg === 1)
+        {
+            res.json({flg:1});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    addComment()
+})
+
+app.get('/getComments/:postId',(req,res) => {
+    let commentObj = Comment.createObj();
+    let getComments = async () => {
+        let promise = await commentObj.getComments(req.params.postId);
+        if(promise.flg === 1)
+        {
+            res.json({flg:1,comments:promise.comments});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    getComments();
 })
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);
