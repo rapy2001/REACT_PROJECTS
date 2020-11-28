@@ -34,6 +34,101 @@ class Like
             return err;
         }   
     }
+    checkLikeStatus = async (userId,postId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM likes WHERE user_id = ? AND post_id = ?';
+                connection.query(query,[userId,postId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(results.length > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('Error while checkign the like status ' + err.message);
+            return err;
+        }
+    }
+
+    likePost = async (userId,postId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'INSERT INTO likes VALUES (0,?,?)';
+                connection.query(query,[userId,postId],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while liking the post ' + err.message);
+            return err;
+        }
+    }
+
+    unLikePost = async (userId,postId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'DELETE FROM likes WHERE user_id = ? AND post_id = ?';
+                connection.query(query,[userId,postId],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while liking the post ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Like;

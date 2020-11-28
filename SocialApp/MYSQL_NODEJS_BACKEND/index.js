@@ -215,6 +215,15 @@ app.get('/getFeed/:userId',(req,res) => {
             {
                 let newPromise = await likeObj.getPostLikes(promise.posts[i].post_id);
                 promise.posts[i].likes = newPromise.likes;
+                newPromise = await likeObj.checkLikeStatus(req.params.userId,promise.posts[i].post_id);
+                if(newPromise.flg === 1)
+                {
+                    promise.posts[i]['likeStatus'] = 1;
+                }
+                else
+                {
+                    promise.posts[i]['likeStatus'] = 0;
+                }
             }               
             res.json({flg:1,posts:promise.posts});
         }
@@ -225,6 +234,55 @@ app.get('/getFeed/:userId',(req,res) => {
     }
     getFeed();
 });
+
+app.post('/likePost',(req,res) => {
+    // console.log(req.body);
+    let obj = Like.createObj();
+    let likePost = async () => {
+        let promise = await obj.likePost(req.body.userId,req.body.postId);
+        if(promise.flg === 1)
+        {
+            res.json({flg:1});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    likePost();
+});
+
+app.post('/unLikePost',(req,res) => {
+    let obj = Like.createObj();
+    let unLikePost = async () => {
+        let promise = await obj.unLikePost(req.body.userId,req.body.postId);
+        if(promise.flg === 1)
+        {
+            res.json({flg:1});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    unLikePost();
+});
+
+app.get('/getPost/:postId',(req,res) =>{
+    let postObj = Post.createObj();
+    let getPost = async () => {
+        let promise = await postObj.getPost(req.params.postId);
+        if(promise.flg === 1)
+        {
+            res.json({flg:1,post:promise.post});
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    getPost();
+})
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);
 });

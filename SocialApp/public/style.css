@@ -305,3 +305,161 @@ body{
 .post_cut:hover i {
     color:black;
 }
+
+.feed {
+    border:1px solid red;
+    padding:3rem 10rem;
+    display:flex;
+    justify-content: center;
+    min-height:var(--myH);
+}
+
+.feed_box{
+    border:1px solid red;
+    flex-shrink:0;
+    flex-basis:50%;
+    padding:2rem;
+}
+.feed_box h1 {
+    font-weight:100;
+    color:var(--mainColor);
+    text-align: center;
+}
+.profile {
+    /* border:1px solid red; */
+    width:20vw;
+    height:45vh;
+    margin-right:2rem;
+    padding:2rem;
+    background-color:white;
+    border-radius:.5rem;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.2);
+}
+.profile_box_1{
+    /* border:1px solid red; */
+    min-height:50%;
+    
+}
+.profile_box_2{
+    /* border:1px solid red; */
+    margin-top:2rem;
+}
+.profile_image_box{
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding:1.5rem;
+}
+
+.profile_image_box img {
+    width:10rem;
+    height:10rem;
+    border-radius:50%;
+    border:1.5px solid white;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.5);
+}
+
+.profile_box_1 h3{
+    font-weight:100;
+    color:var(--mainColor);
+    font-size:2rem;
+    text-align: center;
+    margin-top:1rem;
+}
+
+.profile_box_2 p{
+    line-height:2;
+}
+
+.editImage{
+    /* border:1px solid red; */
+    width:2.5rem;
+    height:2.5rem;
+    border-radius:50%;
+    background:white;
+    outline:none;
+    position: absolute;
+    bottom:1.2rem;
+    left:12rem;
+    border:none;
+    box-shadow:2px 2px 2px rgba(0,0,0,.5);
+    color:var(--mainColor);
+}
+.editImage:hover{
+    cursor:pointer;
+}
+
+.posts_box{
+    margin-top:3rem;
+}
+
+.single_post {
+    /* border:1px solid red; */
+    display:flex;
+    margin-top:2rem;
+    margin-bottom:2rem;
+    background-color:white;
+    box-shadow:0px 2px 3px rgba(0,0,0,.2);
+    overflow:hidden;
+    border-radius:.5rem;
+    position: relative;
+    top:0px;
+    transition: var(--trans);
+}
+.single_post:hover{
+    cursor: pointer;
+    top:-10px;
+}
+
+.post_box_1{
+    /* border:1px solid red; */
+    flex-basis: 25%;
+    flex-shrink: 0;
+}
+
+.post_box_2{
+    /* border:1px solid red; */
+    flex-basis:75%;
+    flex-shrink: 0;
+    padding:1rem;
+    padding-left:1rem;
+}
+
+.post_box_3{
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: space-between;
+    margin-top:1rem;
+}
+.post_box_3 div{
+    /* border:1px solid red; */
+    display: flex;
+    align-items: center;
+}
+.post_box_3 div button{
+    background:none;
+    border:none;
+    outline:none;
+    margin-right:.5rem;
+}
+.post_box_3 div h4{
+    font-weight:100;
+    color:var(--mainColor);
+}
+.liked {
+    color:var(--mainColor);
+}
+.post_box_2 h3, .post_box_3 h4{
+    font-weight:100;
+    color:var(--mainColor);
+}
+.post_box_2 h5{
+    font-weight:100;
+    color:grey;
+}
+.post_box_2 p{
+    margin-top:.5rem;
+    line-height:2;
+}

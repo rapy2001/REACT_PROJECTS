@@ -8,7 +8,7 @@ import Login from "./components/Login";
 import ViewUsers from "./components/ViewUsers";
 import ViewFriendRequest from "./components/ViewFriendRequest";
 import AddPost from "./components/AddPost";
-import Profile from "./components/Profile";
+
 import Feed from "./components/Feed";
 import Footer from "./components/Footer";
 const App = () => {
@@ -17,7 +17,8 @@ const App = () => {
     const [crntUser,setCrntUser] = React.useState({
         userId:-1,
         username:'',
-        image:''
+        image:'',
+        description:''
     });
     const toggleForm = (flg) => {
         if(flg === 1)
@@ -29,7 +30,8 @@ const App = () => {
         setCrntUser({
             userId:user.user_id,
             username:user.username,
-            image:user.image
+            image:user.image,
+            description:user.description
         })
         setIsLoggedIn(true);
     }
@@ -47,7 +49,6 @@ const App = () => {
         <div>
             <Router>
                 <Nav crntUser = {crntUser} isLoggedIn = {isLoggedIn} login = {login} logout = {logout} toggleForm = {toggleForm}/>
-                {isLoggedIn && <Profile crntUser = {crntUser}/>}
                 {showPostForm === true && isLoggedIn === true ?  <AddPost crntUser = {crntUser} isLoggedIn = {isLoggedIn} toggleForm = {toggleForm}/> : null}
                 <Switch>
                     <Route path = '/' exact>

@@ -93,6 +93,31 @@ class Post
             return err;
         }
     }
+
+    getPost = async (postId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM posts WHERE post_id = ?';
+                connection.query(query,[postId],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,post:result[0]});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the Posts ' + err.message);
+            return err;
+        }
+    }
 }
 
 
