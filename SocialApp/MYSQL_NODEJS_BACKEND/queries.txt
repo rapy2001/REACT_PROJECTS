@@ -60,3 +60,11 @@ create table comments (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE
 );
+
+alter table comments add created_at timestamp not null default NOW();
+
+alter table notifications add created_at timestamp not null default NOW();
+
+create trigger delete_notif before delete on likes for each row begin
+	DELETE FROM notifications WHERE data = CURRENT.like_id ;
+END

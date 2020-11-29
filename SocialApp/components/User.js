@@ -37,15 +37,15 @@ const User = ({username,image,status,user_id,crntUser}) => {
         })
     }
     return(
-        <div>
+        <div className = 'user'>
             {msg && <h4>{msg}</h4>}
-            <div>
+            <div className = 'user_box_1'>
                 <img src = {image} alt = {username}/>
             </div>
-            <div>
+            <div className = 'user_box_2'>
                 <h4>{username}</h4>
                 <div>
-                    {status === 0 ? <button onClick = {() => sendRequest()}>Send Friend Request</button> : null}
+                    {status === 0 ? <button onClick = {() => sendRequest()}><span><i className = 'fa fa-plus'></i></span></button> : null}
                 </div>
             </div>
         </div>

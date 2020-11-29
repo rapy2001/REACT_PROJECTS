@@ -58,6 +58,31 @@ class Notification
             return err;
         }
     }
+
+    getNotifications = async (userId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC';
+                connection.query(query,[userId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,data:results})
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the notifications ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Notification;

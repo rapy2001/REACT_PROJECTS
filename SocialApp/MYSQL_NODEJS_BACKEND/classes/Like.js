@@ -129,6 +129,38 @@ class Like
             return err;
         }
     }
+
+    getLike = async (likeId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM likes WHERE like_id = ?';
+                connection.query(query,[likeId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(results.length >  0)
+                        {
+                            resolve({flg:1,like:results[0]});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the like  ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Like;

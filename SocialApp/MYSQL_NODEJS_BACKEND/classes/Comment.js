@@ -12,7 +12,7 @@ class Comment
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO comments VALUES (0,?,?,?)';
+                let query = 'INSERT INTO comments VALUES (0,?,?,?,NOW())';
                 connection.query(query,[commentText,userId,postId],(err,result) => {
                     if(err)
                     {
@@ -44,7 +44,7 @@ class Comment
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'SELECT * FROM comments WHERE post_id = ?';
+                let query = 'SELECT comments.comment_id, comments.comment,comments.created_at,comments.user_id,comments.post_id,users.username,users.image FROM comments INNER JOIN users ON comments.user_id = users.user_id WHERE post_id = ?';
                 connection.query(query,[postId],(err,results) => {
                     if(err)
                     {
@@ -53,6 +53,31 @@ class Comment
                     else
                     {
                         resolve({flg:1,comments:results});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('Error while getting the comments' + err.message);
+            return err;
+        }
+    }
+
+    getComment = async (commentId) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM comments WHERE comment_id = ?';
+                connection.query(query,[commentId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,comment:results[0]});
                     }
                 })
             })

@@ -1,4 +1,5 @@
 import React from "react";
+import Comment from "./Comment";
 import AddComment from "./AddComment";
 const FullPost = ({postId,togglePost,crntUser}) => {
     let interval = null;
@@ -31,8 +32,9 @@ const FullPost = ({postId,togglePost,crntUser}) => {
             
             if(data.flg === 1)
             {
-                console.log(data.comments);
+                // console.log(data.comments);
                 setComments(data.comments);
+                setCommentLoadError(false);
             }
             else
             {
@@ -96,6 +98,11 @@ const FullPost = ({postId,togglePost,crntUser}) => {
     }
     else
     {
+        let commentsAry = [];
+        if(comments.length > 0)
+            commentsAry = comments.map((comment) => {
+                return (<Comment {...comment}/>)
+            })
         return (
             <div>
                 {toggleForm && <AddComment crntUser = {crntUser} postId = {postId} toggleCommentForm = {toggleCommentForm}/>}
@@ -119,7 +126,7 @@ const FullPost = ({postId,togglePost,crntUser}) => {
                         <h2>Comments:</h2>
                         <button onClick = {() => {toggleCommentForm(1)}}>Add a Comment</button>
                         {commentLoadError && <h4>Error While loading the Comments</h4>}
-                        {comments.length > 0 ? <div>comments div</div>:<h4>No Comments Yet</h4>}
+                        {comments.length > 0 ? <div>{commentsAry}</div>:<h4>No Comments Yet</h4>}
                     </div>
                 </div>
             </div>

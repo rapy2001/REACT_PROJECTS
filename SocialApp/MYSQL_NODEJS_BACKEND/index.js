@@ -291,7 +291,16 @@ app.post('/addComment',(req,res) => {
         let promise = await commentObj.addComment(req.body.userId,req.body.postId,req.body.commentText);
         if(promise.flg === 1)
         {
-            res.json({flg:1});
+            let notifObj = Notification.createObj();
+            let response = await notifObj.insertNotification(req.body.userId,req.body.postId,2)
+            if(response.flg === 1)
+            {
+                res.json({flg:1});
+            }
+            else
+            {
+                res.json({flg:0});
+            }
         }
         else
         {
@@ -315,6 +324,109 @@ app.get('/getComments/:postId',(req,res) => {
         }
     }
     getComments();
+})
+
+app.get('/getNotifications/:userId',(req,res) => {
+    let notifObj = Notification.createObj();
+    let getNotifications = async () => {
+        let promise = await notifObj.getNotifications(req.params.userId);
+        // console.log(promise.data[0].user_id);
+        if(promise.flg === 1)
+        {
+            let data = promise.data;
+            for(let i = 0; i<data.length; i++)
+            {
+                let obj = null;
+                let response1 = null;
+                let response2 = null;
+                let userObj = User.createObj();
+                if(data[i].type === 1)
+                {
+                    obj = Post.createObj();
+                    response1 = await obj.getPost(data[i]['data']);
+                    // console.log(response1);
+                    if(response1.flg === 1)
+                    {
+                        response2 = await userObj.getUser(response1.post.user_id);
+                        if(response2.flg === 1)
+                        {
+                            data[i]['username'] = response2.user.username;
+                            data[i]['user_id'] = response2.user.user_id;
+                        }
+                        else
+                        {
+                            res.json({flg:0});
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        console.log('error 1');
+                        res.json({flg:0});
+                        break;
+                    }
+                }
+                else if(data[i].type === 2)
+                {
+                    obj = Like.createObj();
+                    response1 = await obj.getLike(data[i]['data']);
+                    // console.log(response1);
+                    if(response1.flg === 1)
+                    {
+                        response2 = await userObj.getUser(response1.like.user_id);
+                        if(response2.flg === 1)
+                        {
+                            data[i]['username'] = response2.user.username;
+                            data[i]['user_id'] = response2.user.user_id;
+                        }
+                        else
+                        {
+                            res.json({flg:0});
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        console.log('error 2');
+                        res.json({flg:0});
+                        break;
+                    }
+                }
+                else if(data[i].type === 3)
+                {
+                    obj = Comment.createObj();
+                    response1 = await obj.getComment(data[i]['data']);
+                    // console.log(response1);
+                    if(response1.flg === 1)
+                    {
+                        response2 = await userObj.getUser(response1.comment.user_id);
+                        if(response2.flg === 1)
+                        {
+                            data[i]['username'] = response2.user.username;
+                            data[i]['user_id'] = response2.user.user_id;
+                        }
+                        else
+                        {
+                            res.json({flg:0});
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        console.log('error 3');
+                        res.json({flg:0});
+                        break;
+                    }
+                }
+            }
+            res.json({flg:1,notifications:data})
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    getNotifications();
 })
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);

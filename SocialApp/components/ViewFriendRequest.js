@@ -47,15 +47,18 @@ const ViewFriendRequest = ({crntUser,isLoggedIn}) => {
                 )
             })
             return (
-                <div>
-                    {requestsItems}
+                <div className = 'viewUsers'>
+                    <h1>Friend Requests</h1>
+                    <div className = 'users_box'>
+                        {requestsItems}
+                    </div>
                 </div>
             )
         }
         else
         {
             return (
-                <div>
+                <div className = 'empty'>
                     <h4>No Friend Requests Yet..</h4>
                 </div>
             )
@@ -64,7 +67,7 @@ const ViewFriendRequest = ({crntUser,isLoggedIn}) => {
     else
     {
         return(
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log In to view Friend Request</h4>
             </div>
         )

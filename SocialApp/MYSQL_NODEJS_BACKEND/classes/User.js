@@ -177,6 +177,30 @@ class User
             return err;
         }
     }
+    getUser = async (userId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM users WHERE user_id = ?';
+                connection.query(query,[userId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,user:results[0]});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the user by id ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = User;

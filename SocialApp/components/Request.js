@@ -69,15 +69,17 @@ const Request = ({request,crntUser}) => {
     }
 
     return (
-        <div>
+        <div className = 'user'>
             {msg && <h4>{msg}</h4>}
-            <div>
+            <div className = 'user_box_1'>
                 <img src = {request.image} alt = {request.username}/>
             </div>
-            <div>
+            <div className = 'user_box_2'>
                 <h4>{request.username}</h4>
-                <button onClick = {accept}>Accept</button>
-                <button onClick = {reject}>Reject</button>
+                <div>
+                    <button id = 'accept'onClick = {accept}><i className = 'fa fa-plus'></i></button>
+                    <button id = 'reject'onClick = {reject}><i className = 'fa fa-times'></i></button>
+                </div>
             </div>
         </div>
     )

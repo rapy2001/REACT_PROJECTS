@@ -50,15 +50,18 @@ const ViewUsers = ({crntUser,isLoggedIn}) => {
                     )
             })
             return (
-                <div>
-                    {userItems}
+                <div className = 'viewUsers'>
+                    <h1>Users</h1>
+                    <div className = 'users_box'>
+                        {userItems}
+                    </div>
                 </div>
             )
         }
         else
         {
             return (
-                <div>
+                <div className = 'empty'>
                     <h4>No Users Yet ...</h4>
                 </div>
             )
@@ -67,7 +70,7 @@ const ViewUsers = ({crntUser,isLoggedIn}) => {
     else
     {
         return (
-            <div>
+            <div className = 'empty'>
                 <h4>Please Log In to View Users</h4>
             </div>
         )
