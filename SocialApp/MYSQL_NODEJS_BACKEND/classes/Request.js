@@ -116,6 +116,37 @@ class Request
             return err;
         }
     }
+    deleteRequests = async () => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'DELETE FROM requests';
+                connection.query(query,(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while deleting the requests ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Request;

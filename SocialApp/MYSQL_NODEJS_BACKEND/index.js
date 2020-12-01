@@ -3,10 +3,11 @@ const dotenv = require('dotenv');
 const app = express();
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const upload = require('express-fileupload');
 dotenv.config();
 app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:false}));
 let User = require('./classes/User');
 let Request = require('./classes/Request');
 let Friend = require('./classes/Friend');
@@ -15,6 +16,7 @@ let Notification = require('./classes/Notification');
 let Like = require('./classes/Like');
 let Comment = require('./classes/Comment');
 //register route 
+app.use(upload());
 let obj = null;
 app.post('/register',(req,res) => {
     // console.log(req.body);
@@ -427,6 +429,121 @@ app.get('/getNotifications/:userId',(req,res) => {
         }
     }
     getNotifications();
+})
+
+app.get('/seed',(req,res) => {
+    const seed = async () => {
+        let promise = null;
+        let obj = null;
+        obj = User.createObj();
+        promise = await obj.deleteUsers();
+        if(promise.flg === 1)
+        {
+            obj = Request.createObj();
+            promise = await obj.deleteRequests();
+            if(promise.flg === 1)
+            {
+                obj = Post.createObj();
+                promise = await obj.deletePosts();
+                if(promise.flg === 1)
+                {
+                    obj = Notification.createObj();
+                    promise = await obj.deleteNotifications();
+                    if(promise.flg === 1)
+                    {
+                        obj = Like.createObj();
+                        promise = await obj.deleteLikes();
+                        if(promise.flg === 1)
+                        {
+                            obj = Friend.createObj();
+                            promise = await obj.deleteFriends();
+                            if(promise.flg === 1)
+                            {
+                                obj = Comment.createObj();
+                                promise = await obj.deleteComments();
+                                if(promise.flg === 1)
+                                {
+                                    res.json({flg:1});
+                                }
+                                else
+                                {
+                                    res.json({flg:0});
+                                }
+                            }
+                            else
+                            {
+                                res.json({flg:0});
+                            }
+                        }
+                        else
+                        {
+                            res.json({flg:0});
+                        }
+                    }
+                    else
+                    {
+                        res.json({flg:0});
+                    }
+                }
+                else
+                {
+                    res.json({flg:0});
+                }
+            }
+            else
+            {
+                res.json({flg:0});
+            }
+        }
+        else
+        {
+            res.json({flg:0});
+        }
+    }
+    seed();
+});
+
+app.post('/editImage',(req,res) => {
+    // console.log(req.body);
+    let imageUpload = async () => {
+        let image = req.files.image;
+        let name = image.name.split('.');
+        name = name[name.length - 1];
+        if(name != 'jpg' && name != 'jpeg' && name != 'png' && name != 'gif')
+        {
+            res.json({flg:-1});
+        }
+        else if(image.size > 500000)
+        {
+            res.json({flg:-2});
+        }
+        else
+        {
+            let userId = req.body.userId;
+            let path = `../components/uploads/${userId + '_' + image.name}`;
+            image.mv(path,async (err) => {
+                if(err)
+                {
+                    res.json({flg:-3});
+                }
+                else
+                {
+                    let obj = User.createObj();
+                    let promise = await  obj.editImage(userId,userId + '_' + image.name);
+                    if(promise.flg === 1)
+                    {
+                        res.json({flg:1});
+                    }
+                    else
+                    {
+                        res.json({flg:0});
+                    }
+                }
+            })
+        }
+    }
+    imageUpload();
+    
 })
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at ${process.env.PORT}`);

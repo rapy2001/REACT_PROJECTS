@@ -104,29 +104,29 @@ const FullPost = ({postId,togglePost,crntUser}) => {
                 return (<Comment {...comment}/>)
             })
         return (
-            <div>
+            <div className = 'fullPost'>
                 {toggleForm && <AddComment crntUser = {crntUser} postId = {postId} toggleCommentForm = {toggleCommentForm}/>}
-                <div>
+                <div className = 'fullpost_box_1'>
                     <h4 onClick = {() => {togglePost(0,-1)}}><i className = 'fa fa-times'></i></h4>
                 </div>
-                <div>
-                    <div>
+                <div className = 'fullpost_container'>
+                    <div className = 'fullpost_box_2'>
                         <h3>{post.title}</h3>
-                        <h4>{post.created_at}</h4>
+                        <h4>{new Date(post.created_at).toLocaleString()}</h4>
                     </div>
-                    <div>
+                    <div className = 'fullpost_box_3'>
                         <img src = {post.image} alt = {post.title} />
                     </div>
-                    <div>
+                    <div className = 'fullpost_box_4'>
                         <p>
                             {post.description}
                         </p>
                     </div>
-                    <div>
+                    <div className = 'fullpost_box_5'>
                         <h2>Comments:</h2>
                         <button onClick = {() => {toggleCommentForm(1)}}>Add a Comment</button>
                         {commentLoadError && <h4>Error While loading the Comments</h4>}
-                        {comments.length > 0 ? <div>{commentsAry}</div>:<h4>No Comments Yet</h4>}
+                        {comments.length > 0 ? <div className = 'fullpost_box_6'>{commentsAry}</div>:<h4>No Comments Yet</h4>}
                     </div>
                 </div>
             </div>

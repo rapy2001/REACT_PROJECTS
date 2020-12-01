@@ -31,7 +31,7 @@ class Notification
         try
         {
             let promise = new Promise((resolve,reject) => {
-                let query = 'INSERT INTO notifications VALUES(0,?,?,?,?)';
+                let query = 'INSERT INTO notifications VALUES(0,?,?,?,?,NOW())';
                 connection.query(query,[userId,type,data,0],(err,result) => {
                     if(err)
                     {
@@ -80,6 +80,37 @@ class Notification
         catch(err)
         {
             console.log('error while getting the notifications ' + err.message);
+            return err;
+        }
+    }
+    deleteNotifications = async () => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'DELETE FROM  notifications';
+                connection.query(query,(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while deleting the notifications ' + err.message);
             return err;
         }
     }

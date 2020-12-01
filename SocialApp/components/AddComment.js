@@ -42,7 +42,10 @@ const AddComment = ({crntUser,postId,toggleCommentForm}) => {
         addComment(text);
     }
     return(
-        <div>
+        <div className = 'addComment'>
+            <div>
+                <h4 onClick = {() => toggleCommentForm(0)}><i className = 'fa fa-times'></i></h4>
+            </div>
             {msg && <h4>{msg}</h4>}
             <form onSubmit = {handleSubmit}>
                 <input

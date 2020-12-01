@@ -201,6 +201,70 @@ class User
             return err;
         }
     }
-}
+
+    deleteUsers = async () => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'DELETE FROM users WHERE username <> ?';
+                connection.query(query,['Admin'],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while deleting the users ' + err.message);
+            return err;
+        }
+    }
+
+    editImage = async (userId,image) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'UPDATE users SET image = ? WHERE user_id = ?';
+                connection.query(query,[image,userId],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while editing  the image ' + err.message);
+            return err;
+        }
+    }
+ }
 
 module.exports = User;
