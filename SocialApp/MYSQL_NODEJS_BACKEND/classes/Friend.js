@@ -131,7 +131,7 @@ class Friend
                     }
                     else
                     {
-                        if(result.affectedRows > 0)
+                        if(result.affectedRows >= 0)
                         {
                             resolve({flg:1});
                         }

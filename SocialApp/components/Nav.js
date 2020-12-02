@@ -33,7 +33,7 @@ const Nav = (props) => {
     }
     return(
         <nav className = 'nav'>
-            {msg && <h4>{msg}</h4>}
+            {msg && <h4 className = 'msg'>{msg}</h4>}
             <div className = 'nav_box_1'>
                 <Link to = '/'>SocialApp</Link>
             </div>

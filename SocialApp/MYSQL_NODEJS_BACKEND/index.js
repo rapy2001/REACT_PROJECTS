@@ -473,31 +473,37 @@ app.get('/seed',(req,res) => {
                             else
                             {
                                 res.json({flg:0});
+                                // console.log('1');
                             }
                         }
                         else
                         {
                             res.json({flg:0});
+                            // console.log('2');
                         }
                     }
                     else
                     {
                         res.json({flg:0});
+                        // console.log('3');
                     }
                 }
                 else
                 {
                     res.json({flg:0});
+                    // console.log('4');
                 }
             }
             else
             {
                 res.json({flg:0});
+                // console.log('5');
             }
         }
         else
         {
             res.json({flg:0});
+            console.log('6');
         }
     }
     seed();

@@ -88,7 +88,7 @@ body{
     height:20vw;
     width:20vw;
     border-radius:50%;
-    background:url("https://cdn.dribbble.com/users/3619723/screenshots/7514630/media/88c1968715b274876197aed543667cf9.png");
+    background:url("https://cdn.dribbble.com/users/2816838/screenshots/8751099/media/e72af5acfdb44c234079dcfea3f12ced.png?compress=1&resize=1000x750");
     background-size:cover;
     background-position:center center;
     box-shadow:0px 0px 6px rgba(0,0,0,.5);
@@ -273,6 +273,7 @@ body{
     top:0;
     left:0;
     width:100vw;
+    z-index:100;
 }
 
 .post .post_container{
@@ -311,11 +312,12 @@ body{
     padding:3rem 10rem;
     display:flex;
     justify-content: center;
-    min-height:var(--myH);
+    height:var(--myH);
+    overflow-y:auto;
 }
 
 .feed_box{
-    border:1px solid red;
+    /* border:1px solid red; */
     flex-shrink:0;
     flex-basis:50%;
     padding:2rem;
@@ -370,7 +372,13 @@ body{
 }
 
 .profile_box_2 p{
+    box-sizing: border-box;
     line-height:2;
+    width:100%;
+    height:auto;
+    /* border:1px solid red; */
+    display:inline-block;
+    /* overflow:auto; */
 }
 
 .editImage{
@@ -596,7 +604,7 @@ button{
 }
 
 .fullPost{
-    border:1px solid red;
+    /* border:1px solid red; */
     position: absolute;
     width:100%;
     height:100%;
@@ -792,7 +800,7 @@ button{
     width:100%;
     height:100%;
     border-radius:50%;
-    border:1rem solid white;
+    border:.2rem solid white;
     box-shadow:0px 0px 3px rgba(0,0,0,.2);
 }
 
@@ -817,4 +825,69 @@ button{
 
 .comment_box_2 h3 b{
     margin-right:.5rem;
+}
+
+.imageForm{
+    /* border:1px solid red; */
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    background-color:rgba(0,0,0,.6);
+    z-index:100;
+}
+.imageForm_box_1{
+    display:flex;
+    justify-content: flex-end;
+    margin-top:4rem;
+    padding-right:4rem;
+}
+
+.imageForm_box_1 h4{
+    border:2px solid white;
+    width:5rem;
+    height:5rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    transition:var(--trans);
+}
+
+.imageForm_box_1 h4:hover{
+    background-color:white;
+    cursor:pointer;
+    color:black;
+}
+
+.imageForm form{
+    width:30%;
+    height:auto;
+    padding:3rem 0rem;
+    /* border:1px solid red; */
+    margin:0px auto;
+    margin-top:10rem;
+    border-radius:.5rem;
+    background-color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageForm form input{
+    border:2.5px solid var(--mainColor);
+    width:60%;
+    padding:.8rem;
+    border-radius:.3rem;
+}
+.imageForm form button{
+    margin-top:2rem;
+    background-color:var(--mainColor);
+    color:white;
+    width:6rem;
+    border-radius:.3rem;
+    height:2.5rem;
+    font-size:1rem;
 }

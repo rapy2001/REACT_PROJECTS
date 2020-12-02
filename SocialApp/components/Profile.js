@@ -64,10 +64,10 @@ const ImageForm = ({crntUser,toggleForm}) => {
         })
     }
     return (
-        <div>
+        <div className = 'imageForm'>
             {msg && <h4>{msg}</h4>}
-            <div>
-                <h4 onClick = {() => toggleForm(0)}><i className = 'fa-fatimes'></i></h4>
+            <div className = 'imageForm_box_1'>
+                <h4 onClick = {() => toggleForm(0)}><i className = 'fa fa-times'></i></h4>
             </div>
             <form onSubmit = {handleSubmit}>
                 <input onChange = {handleChange} type = 'file' name = 'image'/>
