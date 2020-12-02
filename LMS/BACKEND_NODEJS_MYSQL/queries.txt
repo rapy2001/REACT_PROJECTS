@@ -1,0 +1,9 @@
+create table books (
+    book_id int primary key auto_increment,
+    name text not null default 'BOOK NAME',
+    isbn varchar(15) not null default '0',
+    publisher text not null default 'PUBLISHER NAME',
+    edition varchar(20) not null default '1',
+    price int not null default 0,
+    pages int not null default 0
+);
