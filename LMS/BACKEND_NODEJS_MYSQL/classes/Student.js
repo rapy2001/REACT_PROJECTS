@@ -1,21 +1,21 @@
-const connection = require("../connection/connection");
+const connection = require('../connection/connection');
 
 let obj = null;
 
-class Book
+class Student 
 {
     static createObj()
     {
-        obj = obj === null ? new Book() : obj;
+        obj = obj === null ? new Student() : obj;
         return obj;
     }
 
-    insertBook = async (name,isbn,publisher,edition,price,pages) => {
+    insertStudent = async (name,guardianName,courseId,branchId,year,semester) => {
         try
         {
-            let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?)';
-                connection.query(query,[name,isbn,publisher,edition,price,pages],(err,result) => {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'INSERT INTO students VALUES (0,?,?,?,?,?,?);';
+                connection.query(query,[name,guardianName,courseId,branchId,year,semester],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -37,49 +37,17 @@ class Book
         }
         catch(err)
         {
-            console.log('error while inserting the book' + err.message);
+            console.log('error while inserting the student record ' + err.message);
             return err;
         }
     }
 
-    updateBook = async (bookId,name,isbn,publisher,edition,prices,pages) => {
+    updateStudent = async (studentId,name,guardianName,courseId,branchId,year,semester) => {
         try
         {
-            let response = await new Promise((resolve,reject) => {
-                let query = 'UPDATE books SET name = ? , isbn = ? , publisher = ? , edition = ? , price = ? , pages = ? WHERE book_id = ?';
-                connection.query(query,[name,isbn,publisher,edition,prices,pages,bookId],(err,result) => {
-                    if(err)
-                    {
-                        reject(new Error(err.message));
-                    }
-                    else
-                    {
-                        if(result.affectedRows > 0)
-                        {
-                            resolve({flg:1});
-                        }
-                        else
-                        {
-                            resolve({flg:0});
-                        }
-                    }
-                })
-            })
-            return response;
-        }
-        catch(err)
-        {
-            console.log('error while updating book ' + err.message);
-            return err;
-        }
-    }
-
-    deleteBook = async (bookId) => {
-        try
-        {
-            let promise = await new Promise((resolve,reject) => {
-                let query = 'DELETE FROM books WHERE book_id = ?';
-                connection.query(query,[bookId],(err,result) => {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'UPDATE students SET name = ? ,  guardian_name = ? , branch_id = ? , course_id = ?, year = ? , semester = ? WHERE student_id = ?';
+                connection.query(query,[studentId,name,guardianName,courseId,branchId,year,semester],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -101,10 +69,42 @@ class Book
         }
         catch(err)
         {
-            console.log('error while deleting the book ' + err.message);
+            console.log('error while updating the student record ' + err.message);
+            return err;
+        }
+    }
+
+    deleteStudent = async (studentId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'DELETE FROM students WHERE student_id = ?';
+                connection.query(query,[studentId],(err,result) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(result.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while deleting the student record ' + err.message);
             return err;
         }
     }
 }
 
-module.exports = Book;
+module.exports = Student;

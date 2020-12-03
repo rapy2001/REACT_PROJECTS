@@ -7,3 +7,29 @@ create table books (
     price int not null default 0,
     pages int not null default 0
 );
+
+create table students (
+    student_id int primary key auto_increment,
+    name varchar (200) not null default 'NAME',
+	guardian_name varchar (200) not null default 'NAME',
+    course_id int not null,
+    branch_id int not null,
+    year int not null default 1,
+    semester int not null default 1
+);
+
+create table courses (
+    course_id int primary key auto_increment,
+    course_name text not null default 'COURSE_NAME'
+);
+
+create table branches (
+    branch_id int primary key auto_increment,
+    branch_name text not null default 'BRANCH NAME',
+    course_id int not null,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+);
+
+alter table students add FOREIGN KEY (branch_id) REFERENCES branches(branch_id) ON DELETE CASCADE;
+
+alter table students add FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE;

@@ -1,21 +1,21 @@
-const connection = require("../connection/connection");
+const connection = require('../connection/connection');
 
 let obj = null;
 
-class Book
+class Branch
 {
     static createObj()
     {
-        obj = obj === null ? new Book() : obj;
+        obj = obj === null ? new Branch() : obj;
         return obj;
     }
 
-    insertBook = async (name,isbn,publisher,edition,price,pages) => {
+    insertBranch = async (courseId,branchName) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?)';
-                connection.query(query,[name,isbn,publisher,edition,price,pages],(err,result) => {
+                let query = 'INSERT INTO branches VALUES (0,?,?)';
+                connection.query(query,[branchName,courseId],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -37,49 +37,17 @@ class Book
         }
         catch(err)
         {
-            console.log('error while inserting the book' + err.message);
+            console.log('error while inserting the branch ' + err.message);
             return err;
         }
     }
 
-    updateBook = async (bookId,name,isbn,publisher,edition,prices,pages) => {
-        try
-        {
-            let response = await new Promise((resolve,reject) => {
-                let query = 'UPDATE books SET name = ? , isbn = ? , publisher = ? , edition = ? , price = ? , pages = ? WHERE book_id = ?';
-                connection.query(query,[name,isbn,publisher,edition,prices,pages,bookId],(err,result) => {
-                    if(err)
-                    {
-                        reject(new Error(err.message));
-                    }
-                    else
-                    {
-                        if(result.affectedRows > 0)
-                        {
-                            resolve({flg:1});
-                        }
-                        else
-                        {
-                            resolve({flg:0});
-                        }
-                    }
-                })
-            })
-            return response;
-        }
-        catch(err)
-        {
-            console.log('error while updating book ' + err.message);
-            return err;
-        }
-    }
-
-    deleteBook = async (bookId) => {
+    updateBranch = async (branchId,courseId,branchName) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'DELETE FROM books WHERE book_id = ?';
-                connection.query(query,[bookId],(err,result) => {
+                let query = 'UPDATE branches SET branch_name = ? , course_id = ? WHERE branch_id = ?';
+                connection.query(query,[branchName,courseId,branchId],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -101,10 +69,35 @@ class Book
         }
         catch(err)
         {
-            console.log('error while deleting the book ' + err.message);
+            console.log('error while updating the branch ' + err.message);
+            return err;
+        }
+    }
+
+    getBranches = async (courseId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM branches WHERE course_id = ?';
+                connection.query(query,[courseId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,branches:results});
+                    }
+                })
+            });
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the branches + ' + err.message);
             return err;
         }
     }
 }
 
-module.exports = Book;
+module.exports = Branch;
