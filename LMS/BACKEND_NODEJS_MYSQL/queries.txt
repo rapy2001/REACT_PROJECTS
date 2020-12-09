@@ -58,3 +58,6 @@ create table users (
 insert into users values (0,'Admin','$2b$10$5PhQ2WDYNzQ1txU8N9y8MejKP0gW1LRZ2wOWB.8wzUP1OJz/xhA2K',1,'https://images.pexels.com/photos/3617500/pexels-photo-3617500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
 
 alter table books add author varchar(255) not null default 'Author Name';
+
+alter table courses add years int not null default 2;
+alter table courses add semesters int not null default 4;

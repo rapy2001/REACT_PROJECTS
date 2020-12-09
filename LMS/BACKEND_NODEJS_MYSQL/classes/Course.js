@@ -10,12 +10,12 @@ class Course
         return obj;
     }
 
-    insertCourse = async (courseName) => {
+    insertCourse = async (courseName,yrs,sems) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO courses VALUES (0,?)';
-                connection.query(query,[courseName],(err,result) => {
+                let query = 'INSERT INTO courses VALUES (0,?,?,?)';
+                connection.query(query,[courseName,yrs,sems],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));

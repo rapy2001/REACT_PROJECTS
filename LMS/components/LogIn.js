@@ -70,6 +70,7 @@ const Login = (props) => {
         <div className = 'box login'>
             <div className = 'box_1'>
                 <form className = 'form' onSubmit = {handleSubmit}>
+                    <h3>Log In</h3>
                     <input
                         type = 'text'
                         name = 'username'
@@ -94,8 +95,11 @@ const Login = (props) => {
                         <option value = '1'>Admin</option>
                         <option value = '2'>Member</option>
                     </select>
-                    <button type = 'submit'>Log In</button>
+                    <button className = 'btn' type = 'submit'>Log In</button>
                 </form>
+            </div>
+            <div className = 'box_2'>
+                <h3>LMS</h3>
             </div>
         </div>
     )

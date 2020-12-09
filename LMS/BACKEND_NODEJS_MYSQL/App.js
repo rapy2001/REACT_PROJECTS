@@ -182,7 +182,7 @@ app.post('/deleteStudent',(req,res) => {
 })
 
 app.post('/addCourse',(req,res) => {
-    if(req.body.courseName == undefined)
+    if(req.body.courseName == undefined || req.body.years === undefined || req.body.semesters === undefined)
     {
         res.status(400).json({flg:-1});
     }
@@ -190,7 +190,7 @@ app.post('/addCourse',(req,res) => {
     {
         const addCourse = async () => {
             let courseObj = Course.createObj();
-            let promise = await courseObj.insertCourse(req.body.courseName);
+            let promise = await courseObj.insertCourse(req.body.courseName,req.body.years,req.body.semesters);
             if(promise.flg === 1)
             {
                 res.json({flg:1});

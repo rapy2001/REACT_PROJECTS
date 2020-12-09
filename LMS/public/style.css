@@ -1,0 +1,285 @@
+:root{
+    --lighBlue:rgb(255, 230, 247);
+    --mainColor:rgb(170, 128, 255);
+    --mainFamily:'Quicksand', sans-serif;
+    --myH:calc(100vh - 12vh);
+    --lightRed:rgb(255, 102, 102);
+    --trans:.2s all linear;;
+}
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+    font-family:var(--mainFamily);
+}
+body{
+    overflow-x:hidden;
+}
+a{
+    color:white;
+    text-decoration: none;
+    font-weight:100;
+    margin-left:.5rem;
+    margin-right:.5rem;
+}
+body{
+    font-family:var(--mainFamily);
+}
+.nav{
+    box-sizing: border-box;
+    height:7vh;
+    display:flex;
+    padding:.5rem 3rem;
+    align-items:center;
+    background-color:var(--mainColor);
+    justify-content: space-between;
+}
+.nav_box_1 a{
+    font-size:1.5rem;
+}
+.footer{
+    box-sizing:border-box;
+    height:5vh;
+    background-color:var(--mainColor);
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+.footer h4{
+    font-weight:100;
+    color:white;
+}
+
+.homepage{
+    box-sizing: border-box;
+    height:var(--myH);
+    display:flex;
+}
+.homepage_box_1{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-basis:50%;
+    flex-shrink:0;
+}
+.homepage_box_1 div{
+    box-sizing: border-box;
+    width:50%;
+}
+.homepage_box_2{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-basis:50%;
+    flex-shrink:0;
+}
+.homepage_box_1 div p{
+    line-height:1.5;
+    text-align:justify;
+}
+.homepage_box_1 h1{
+    font-weight:100;
+    color:var(--mainColor);
+    margin-bottom:2rem;
+}
+
+.homepage_box_2 div{
+    box-sizing: border-box;
+    height:20vw;
+    width:20vw;
+    border-radius:50%;
+    background:url("https://cdn.dribbble.com/users/133069/screenshots/11198059/media/a7a5e0d70cfb00c10b572295b31da8e1.png?compress=1&resize=1000x750");
+    background-size:cover;
+    background-position:center center;
+    box-shadow:0px 0px 6px rgba(0,0,0,.5);
+}
+
+.box{
+    /* border:1px solid red; */
+    box-sizing: border-box;
+    height:var(--myH);
+    display:flex;
+}
+
+.box_1{
+    /* border:1px solid red; */
+    flex-basis:50%;
+    flex-shrink:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box_2{
+    /* border:1px solid red; */
+    flex-basis:50%;
+    flex-shrink:0;
+}
+
+.box_2{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+.box_2 h3{
+    font-size:3rem;
+    font-weight:100;
+    color:white;
+}
+
+.form{
+    /* border:1px solid red; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction:column;
+    width:30vw;
+    padding:2rem 6rem;
+    min-height:45vh;
+    background-color:white;
+    /* box-shadow:0px 3px 8px rgba(0,0,0,.8); */
+}
+
+.form select
+{
+    margin-top:.5rem;
+    margin-bottom:.5rem;
+}
+.form h4{
+    font-weight:100;
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+.form a{
+    color:var(--mainColor);
+}
+.form h3,#addToDo_form h3{
+    text-align:center;
+    font-weight:100;
+    font-size:1.5rem;
+    margin-bottom:2rem;
+    color:var(--mainColor);
+}
+.form input,#addToDo_form input,.form textarea{
+    box-sizing: border-box;
+    margin-top:.8rem;
+    margin-bottom:.8rem;
+    border:1.2px solid var(--mainColor);
+    padding:.5rem 1rem;
+    outline:none;
+    font-family:var(--mainFamily);
+}
+.form textarea{
+    box-sizing: border-box;
+    width:100%;
+    height:15vh;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    font-family:var(--mainFamily);
+    
+}
+.form input[type='submit'],#addToDo_form input[type = "submit"]
+{
+    border:1px solid var(--mainColor);
+    color:var(--mainColor);
+    transition:var(--trans);
+    background-color:white;
+}
+.form input[type='submit']:hover,#addToDo_form input[type = "submit"]:hover{
+    cursor:pointer;
+    background-color:var(--mainColor);
+    color:white;
+}
+
+.register .box_2{
+    background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),url("https://cdn.dribbble.com/users/2155131/screenshots/11048036/media/9e5eaf57a3d753a253216bf6046858a8.jpg");
+    background-position:center;
+    background-size:cover;
+}
+
+.btn{
+    border:none;
+    background:none;
+    font-family:var(--mainFamily);
+    color:var(--mainColor);
+    font-size:1rem;
+    padding:.5rem 2rem;
+    border:1.5px solid var(--mainColor);
+    outline:none;
+    transition: var(--trans);
+}
+
+.form button{
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+.btn:hover{
+    cursor:pointer;
+    background-color:var(--mainColor);
+    color:white
+}
+
+.login .box_2{
+    background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),url("https://cdn.dribbble.com/users/708424/screenshots/7961575/media/5634c53a6642cfbba99d9aaa52d42443.png?compress=1&resize=1000x750");
+    background-position:center;
+    background-size:cover;
+}
+
+.addStudent .box_2{
+    background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),url("https://cdn.dribbble.com/users/116499/screenshots/9910103/media/72ebba97efb1b85245554ec27e3dbc25.png?compress=1&resize=1000x750");
+    background-position:center;
+    background-size:cover;
+}
+.empty{
+    box-sizing: border-box;
+    width:100%;
+    height:var(--myH);
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.empty h4{
+    box-sizing: border-box;
+    width:30vw;
+    border:2px solid red;
+    height:7vw;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-weight:100;
+    color:red;
+    font-size:1.5rem;
+}
+
+
+.msg{
+    position:absolute;
+    top:5rem;
+    min-width:10vw;
+    border-left:5px solid var(--mainColor);
+    right:0px;
+    background-color:white;
+    box-shadow:0px 0px 3px rgba(0,0,0,.5);
+    font-weight:100;
+    padding:.8rem 1rem;
+    text-align:center;
+}
+.nav button{
+    background:none;
+    color:white;
+    margin-left:1rem;
+    margin-right:1rem;
+}
+.form label{
+    color:var(--mainColor);
+    margin-top:.5rem;
+    margin-bottom:.5rem;
+}
+.selection{
+    /* border:1px solid red; */
+    margin-top:1rem;
+    margin-bottom:1rem;
+    display:flex;
+    flex-direction: column;
+}
