@@ -33,3 +33,15 @@ create table branches (
 alter table students add FOREIGN KEY (branch_id) REFERENCES branches(branch_id) ON DELETE CASCADE;
 
 alter table students add FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE;
+
+
+create table issued_books (
+    student_id int not null,
+    book_id int not null,
+    issued_at timestamp not null default NOW(),
+    returned_at timestamp not null default NOW()
+);
+
+alter table issued_books add FOREIGN KEY(student_id) REFERENCES students(student_id);
+
+alter table issued_books add FOREIGN KEY(book_id) REFERENCES books(book_id);

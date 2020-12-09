@@ -105,6 +105,31 @@ class Student
             return err;
         }
     }
+
+    searchStudent = async (name,courseId,branchId,year,semester) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM students WHERE name = ? AND course_id = ? AND branch_id = ? AND year = ? AND semester = ?';
+                connection.query(query,[name,courseId,branchId,year,semester],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,students:results});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while searching the student ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Student;

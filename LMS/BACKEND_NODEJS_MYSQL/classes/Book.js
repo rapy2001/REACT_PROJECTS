@@ -105,6 +105,39 @@ class Book
             return err;
         }
     }
+
+    searchBook = async (bookName) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let ary = bookName.split(' ');
+                let query = 'SELECT * FROM books WHERE name LIKE ';
+                for(let i = 0; i<ary.length; i++ )
+                {
+                    if(i == ary.length- 1)
+                        query += `'${ary[i]}'`;
+                    else
+                        query += `'${ary[i]}' OR `;
+                }
+                connection.query(query,(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,books:results});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while searching the Book ' + err.message);
+            return err;
+        }
+    }
 }
 
 module.exports = Book;

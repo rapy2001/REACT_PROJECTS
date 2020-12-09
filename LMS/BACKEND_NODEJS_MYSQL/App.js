@@ -6,6 +6,7 @@ const Book = require('./classes/Book');
 const Student = require('./classes/Student');
 const Course = require('./classes/Course');
 const Branch = require('./classes/Branch');
+const IssuedBooks = require('./classes/IssuedBooks');
 env.config();
 app.use(cors());
 app.use(express.json());
@@ -276,6 +277,69 @@ app.get('/getBranches/:courseId',(req,res) => {
             }
         }
         getCourses();
+    }
+})
+
+app.get('/searchBook/:search',(req,res) => {
+    if(req.params.search == undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        let searchBook = async () => {
+            let obj = Book.createObj();
+            let promise = await obj.searchBook(req.params.search);
+            res.json({flg:1,books:promise.books});
+        }
+        searchBook();
+    }
+})
+
+app.post('/searchStudent',(req,res) => {
+    if(req.body.name == undefined || req.body.courseId == undefined || req.body.branchId == undefined || req.body.year == undefined || req.body.semester == undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        searchStudent = async () => {
+            let obj = Student.createObj();
+            let promise = await obj.searchStudent(req.body.name,req.body.courseId,req.body.branchId,req.body.year,req.body.semester);
+            res.json({flg:1,students:promise.students});
+        }
+        searchStudent();
+    }
+})
+
+app.post('/issueBook',(req,res) => {
+    if(req.body.bookId == undefined || req.body.studentId == undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        let issueBook = async () => {
+            let obj = IssuedBooks.createObj();
+            let promise = await obj.checkBookStatus(req.body.bookId);
+            if(promise.flg === 1)
+            {
+                res.json({flg:2});
+            }
+            else
+            {
+                let promise = await obj.issueBook(req.body.bookId,req.body.studentId);
+                if(promise.flg == 1)
+                {
+                    res.json({flg:1});
+                }
+                else
+                {
+                    res.status(500).json({flg:0});
+                }
+            }
+        }
+        issueBook();
     }
 })
 app.listen(process.env.PORT,() => {
