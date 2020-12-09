@@ -1,18 +1,50 @@
 const express = require('express');
 const cors = require('cors');
 const env = require('dotenv');
+const bcrypt = require('bcrypt');
 const app = express();
 const Book = require('./classes/Book');
 const Student = require('./classes/Student');
 const Course = require('./classes/Course');
 const Branch = require('./classes/Branch');
 const IssuedBooks = require('./classes/IssuedBooks');
+const User = require('./classes/User');
 env.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.post('/login',(req,res) => {
+    if(req.body.username == undefined || req.body.password == undefined || req.body.type == undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        let getUser = async () => {
+            let obj = User.createObj();
+            // console.log(req.body);
+            let promise = await obj.getUser(req.body.username,Number(req.body.type));
+            if(promise.flg === 1)
+            {
+                if(bcrypt.compareSync(req.body.password,promise.user.password))
+                {
+                    res.json({flg:1});
+                }
+                else
+                {
+                    res.json({flg:3});
+                }
+            }
+            else
+            {
+                res.json({flg:2});
+            }
+        }
+        getUser();
+    }
+})
 app.post('/addBook',(req,res) => {
-    if(req.body.name == undefined || req.body.isbn == undefined || req.body.publisher == undefined || req.body.edition == undefined || req.body.price == undefined || req.body.pages == undefined)
+    if(req.body.name == undefined || req.body.isbn == undefined || req.body.publisher == undefined || req.body.edition == undefined || req.body.price == undefined || req.body.pages == undefined || req.body.author == undefined)
     {
         res.status(400).json({flg:-1});
     }
@@ -20,7 +52,7 @@ app.post('/addBook',(req,res) => {
     {
         let bookObj = Book.createObj();
         const addBook = async () => {
-            let promise = await bookObj.insertBook(req.body.name,req.body.isbn,req.body.publisher,req.body.edition,req.body.price,req.body.pages);
+            let promise = await bookObj.insertBook(req.body.name,req.body.isbn,req.body.publisher,req.body.edition,req.body.price,req.body.pages,req.body.author);
             if(promise.flg === 1)
             {
                 res.json({flg:1});
@@ -289,7 +321,7 @@ app.get('/searchBook/:search',(req,res) => {
     {
         let searchBook = async () => {
             let obj = Book.createObj();
-            let promise = await obj.searchBook(req.params.search);
+            let promise = await obj.searchBookByName(req.params.search);
             res.json({flg:1,books:promise.books});
         }
         searchBook();
@@ -342,6 +374,10 @@ app.post('/issueBook',(req,res) => {
         issueBook();
     }
 })
+
+// bcrypt.hash('12345',10,(err,hash) => {
+//     console.log(hash);
+// })
 app.listen(process.env.PORT,() => {
     console.log(`Server listeining at port ${process.env.PORT}`);
 })

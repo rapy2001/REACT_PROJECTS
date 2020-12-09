@@ -10,12 +10,12 @@ class Book
         return obj;
     }
 
-    insertBook = async (name,isbn,publisher,edition,price,pages) => {
+    insertBook = async (name,isbn,publisher,edition,price,pages,author) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?)';
-                connection.query(query,[name,isbn,publisher,edition,price,pages],(err,result) => {
+                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?,?)';
+                connection.query(query,[name,isbn,publisher,edition,price,pages,author],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -106,7 +106,7 @@ class Book
         }
     }
 
-    searchBook = async (bookName) => {
+    searchBookByName = async (bookName) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
@@ -134,7 +134,32 @@ class Book
         }
         catch(err)
         {
-            console.log('error while searching the Book ' + err.message);
+            console.log('error while searching the Book by book name' + err.message);
+            return err;
+        }
+    }
+
+    searchBookByAuthorName = async (authorName) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM books WHERE author = ?';
+                connection.query(query,[authorName],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,books:results});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while searching the Book by author name' + err.message);
             return err;
         }
     }
