@@ -13,8 +13,10 @@ const Nav = ({isLoggedIn,crntUser,logout}) => {
             </div>
             <div className = 'nav_box_2'>
                 {isLoggedIn ? crntUser.type === 1 ? <Link to = '/addStudent'>Add a Student</Link>:null : null}
+                {isLoggedIn ? crntUser.type === 1 ? <Link to = '/addCourse'>Add a Course</Link>:null : null}
+                {isLoggedIn ? crntUser.type === 1 ? <Link to = '/viewCourses'>View Courses</Link>:null : null}
                 {isLoggedIn || <Link to = '/login'>Log In</Link>}
-                {isLoggedIn && <button onClick = {() => logout()}>Log Ou</button>}
+                {isLoggedIn && <button onClick = {() => logout()}>Log Out ({crntUser.username})</button>}
             </div>
         </nav>
     )

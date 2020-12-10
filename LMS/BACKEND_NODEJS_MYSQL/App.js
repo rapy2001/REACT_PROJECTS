@@ -204,8 +204,47 @@ app.post('/addCourse',(req,res) => {
     }
 })
 
+app.get('/getCourses',(req,res) => {
+    const getCourses = async () => {
+        let courseObj = Course.createObj();
+        let promise = await courseObj.getCourses();
+        if(promise.flg === 1)
+        {
+            res.json({flg:1,courses:promise.courses});
+        }
+        else
+        {
+            res.status(500).json({flg:0});
+        }
+    }
+    getCourses();
+})
+
+app.get('/getCourse/:id',(req,res) => {
+    if(req.params.id === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getCourse = async () => {
+            let courseObj = Course.createObj();
+            let promise = await courseObj.getCourse(req.params.id);
+            if(promise.flg === 1)
+            {
+                res.json({flg:1,course:promise.course});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        getCourse();
+    }
+})
 app.post('/updateCourse',(req,res) => {
-    if(req.body.courseName == undefined || req.body.courseId == undefined)
+    // console.log(req.body);
+    if(req.body.courseName == undefined || req.body.courseId == undefined || req.body.years === undefined || req.body.semesters === undefined)
     {
         res.status(400).json({flg:-1});
     }
@@ -213,7 +252,7 @@ app.post('/updateCourse',(req,res) => {
     {
         const updateCourse = async () => {
             let courseObj = Course.createObj();
-            let promise = await courseObj.updateCourse(req.body.courseId,req.body.courseName);
+            let promise = await courseObj.updateCourse(req.body.courseId,req.body.courseName,req.body.years,req.body.semesters);
             if(promise.flg === 1)
             {
                 res.json({flg:1});
@@ -227,6 +266,21 @@ app.post('/updateCourse',(req,res) => {
     }
 })
 
+app.post('/deleteCourse',(req,res) => {
+    if(req.body.courseId === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        let deleteCourse = async () => {
+            let obj = Course.createObj();
+            let promise = await obj.deleteCourse(req.body.courseId);
+           res.json({flg:promise.flg});
+        }
+        deleteCourse();
+    }
+})
 app.post('/addBranch',(req,res) => {
     if(req.body.courseId == undefined || req.body.branchName == undefined)
     {
@@ -273,21 +327,7 @@ app.post('/updateBranch',(req,res) => {
     }
 })
 
-app.get('/getCourses',(req,res) => {
-    const getCourses = async () => {
-        let courseObj = Course.createObj();
-        let promise = await courseObj.getCourses();
-        if(promise.flg === 1)
-        {
-            res.json({flg:1,courses:promise.courses});
-        }
-        else
-        {
-            res.status(500).json({flg:0});
-        }
-    }
-    getCourses();
-})
+
 
 app.get('/getBranches/:courseId',(req,res) => {
     if(req.params.courseId == undefined)
