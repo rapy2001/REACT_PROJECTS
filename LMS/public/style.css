@@ -77,7 +77,7 @@ body{
     line-height:1.5;
     text-align:justify;
 }
-.homepage_box_1 h1{
+.homepage_box_1 h1,.viewBranches h2{
     font-weight:100;
     color:var(--mainColor);
     margin-bottom:2rem;
@@ -254,7 +254,7 @@ body{
 
 
 .msg{
-    position:absolute;
+    position:fixed;
     top:5rem;
     min-width:10vw;
     border-left:5px solid var(--mainColor);
@@ -291,11 +291,11 @@ body{
 }
 
 .courses_container{
-    height:var(--myH);
+    min-height:var(--myH);
     padding:4rem 0rem;
 }
 
-.courses_container h1 {
+.courses_container h1{
     font-weight:100;
     color:var(--mainColor);
     text-align: center;
@@ -410,4 +410,33 @@ body{
     display:flex;
     justify-content: center;
     margin-top:4rem;
+}
+
+.addBranch .box_2{
+    background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),url("https://cdn.dribbble.com/users/1162077/screenshots/5097619/drawing-tools-new_4x.png?compress=1&resize=1000x750");
+    background-position:center;
+    background-size:cover;
+}
+
+.viewBranches_box{
+    display:flex;
+    justify-content: center;
+    margin-bottom:4rem;
+}
+
+.viewBranches h2{
+    margin-top:1rem;
+    margin-bottom:1rem;
+    text-align:center;
+}
+.viewBranches form{
+    border:2px solid var(--mainColor);
+    height:5vh;
+    border-radius:1rem;
+}
+
+#empty_rom{
+    color:red;
+    text-align: center;
+    padding:1rem 0rem;
 }

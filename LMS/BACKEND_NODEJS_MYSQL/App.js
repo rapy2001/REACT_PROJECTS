@@ -305,7 +305,7 @@ app.post('/addBranch',(req,res) => {
 })
 
 app.post('/updateBranch',(req,res) => {
-    if(req.body.branchName == undefined || req.body.courseId == undefined || req.body.branchId == undefined)
+    if(req.body.branchName == undefined || req.body.branchId == undefined)
     {
         res.status(400).json({flg:-1});
     }
@@ -313,7 +313,7 @@ app.post('/updateBranch',(req,res) => {
     {
         const updateBranch = async () => {
             let branchObj = Branch.createObj();
-            let promise = await branchObj.updateBranch(req.body.branchId,req.body.courseId,req.body.branchName);
+            let promise = await branchObj.updateBranch(req.body.branchId,req.body.branchName);
             if(promise.flg === 1)
             {
                 res.json({flg:1});
@@ -351,7 +351,43 @@ app.get('/getBranches/:courseId',(req,res) => {
         getCourses();
     }
 })
-
+app.get('/getBranch/:id',(req,res) => {
+    if(req.params.id === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getBranch = async () => {
+            let branchObj = Branch.createObj();
+            let promise = await branchObj.getBranch(req.params.id);
+            if(promise.flg === 1)
+            {
+                res.json({flg:1,branch:promise.branch});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        getBranch();
+    }
+})
+app.post('/deleteBranch',(req,res) => {
+    if(req.body.branchId === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        let deleteBranch = async () => {
+            let obj = Branch.createObj();
+            let promise = await obj.deleteBranch(req.body.branchId);
+           res.json({flg:promise.flg});
+        }
+        deleteBranch();
+    }
+})
 app.get('/searchBook/:search',(req,res) => {
     if(req.params.search == undefined)
     {

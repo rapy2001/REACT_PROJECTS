@@ -42,12 +42,12 @@ class Branch
         }
     }
 
-    updateBranch = async (branchId,courseId,branchName) => {
+    updateBranch = async (branchId,branchName) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'UPDATE branches SET branch_name = ? , course_id = ? WHERE branch_id = ?';
-                connection.query(query,[branchName,courseId,branchId],(err,result) => {
+                let query = 'UPDATE branches SET branch_name = ?  WHERE branch_id = ?';
+                connection.query(query,[branchName,branchId],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -78,7 +78,7 @@ class Branch
         try
         {
             let promise = new Promise((resolve,reject) => {
-                let query = 'SELECT * FROM branches WHERE course_id = ?';
+                let query = 'SELECT branches.branch_name,branches.branch_id,branches.course_id,courses.course_name FROM branches INNER JOIN courses ON branches.course_id = courses.course_id WHERE branches.course_id = ?';
                 connection.query(query,[courseId],(err,results) => {
                     if(err)
                     {
@@ -95,6 +95,62 @@ class Branch
         catch(err)
         {
             console.log('error while getting the branches + ' + err.message);
+            return err;
+        }
+    }
+    getBranch = async (brnachId) => {
+        try
+        {
+            let promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM branches WHERE branch_id = ?';
+                connection.query(query,[brnachId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,branch:results[0]});
+                    }
+                })
+            });
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while getting the branch + ' + err.message);
+            return err;
+        }
+    }
+
+    deleteBranch = async (branchId) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'DELETE FROM branches WHERE branch_id = ?';
+                connection.query(query,[branchId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        if(results.affectedRows > 0)
+                        {
+                            resolve({flg:1});
+                        }
+                        else
+                        {
+                            resolve({flg:0});
+                        }
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('error while deleting the branch ' + err.message);
             return err;
         }
     }
