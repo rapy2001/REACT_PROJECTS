@@ -87,14 +87,20 @@ const Login = (props) => {
                         placeholder = 'Your Password'
                         autoComplete = 'off' 
                     />
-                    <select 
-                        name = 'type' 
-                        value = {user.type} 
-                        onChange = {handleChange}
-                    >
-                        <option value = '1'>Admin</option>
-                        <option value = '2'>Member</option>
-                    </select>
+                    <div className = 'selection'>
+                        <label>
+                            Account Type:
+                        </label>
+                        <select 
+                            name = 'type' 
+                            value = {user.type} 
+                            onChange = {handleChange}
+                        >
+                            <option value = '1'>Admin</option>
+                            <option value = '2'>Member</option>
+                        </select>
+                    </div>
+                    
                     <button className = 'btn' type = 'submit'>Log In</button>
                 </form>
             </div>

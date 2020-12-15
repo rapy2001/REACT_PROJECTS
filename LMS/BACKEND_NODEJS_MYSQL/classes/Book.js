@@ -10,12 +10,12 @@ class Book
         return obj;
     }
 
-    insertBook = async (name,isbn,publisher,edition,price,pages,author) => {
+    insertBook = async (name,isbn,publisher,edition,price,pages,author,image) => {
         try
         {
             let promise = await new Promise((resolve,reject) => {
-                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?,?)';
-                connection.query(query,[name,isbn,publisher,edition,price,pages,author],(err,result) => {
+                let query = 'INSERT INTO books VALUES (0,?,?,?,?,?,?,?,?)';
+                connection.query(query,[name,isbn,publisher,edition,price,pages,author,image],(err,result) => {
                     if(err)
                     {
                         reject(new Error(err.message));
@@ -160,6 +160,31 @@ class Book
         catch(err)
         {
             console.log('error while searching the Book by author name' + err.message);
+            return err;
+        }
+    }
+
+    getBooks = async () => {
+        try
+        {
+            const promise = new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM books';
+                connection.query(query,(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(err.message));
+                    }
+                    else
+                    {
+                        resolve({flg:1,books:results});
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log('Error while fetching the books ' + err.message);
             return err;
         }
     }

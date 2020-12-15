@@ -17,8 +17,10 @@ const Nav = ({isLoggedIn,crntUser,logout}) => {
                 {isLoggedIn ? crntUser.type === 1 ? <Link to = '/viewCourses'>View Courses</Link>:null : null}
                 {isLoggedIn ? crntUser.type === 1 ? <Link to = '/addBranch'>Add a Branch</Link>:null : null}
                 {isLoggedIn ? crntUser.type === 1 ? <Link to = '/viewBranches'>View Branches</Link>:null : null}
+                {isLoggedIn ? crntUser.type === 1 ? <Link to = '/addBook'>Add Book</Link>:null : null}
                 {isLoggedIn || <Link to = '/login'>Log In</Link>}
                 {isLoggedIn && <button onClick = {() => logout()}>Log Out ({crntUser.username})</button>}
+                <Link to = '/viewBooks'>View Books</Link>
             </div>
         </nav>
     )

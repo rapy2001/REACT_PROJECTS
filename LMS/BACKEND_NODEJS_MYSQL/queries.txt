@@ -61,3 +61,6 @@ alter table books add author varchar(255) not null default 'Author Name';
 
 alter table courses add years int not null default 2;
 alter table courses add semesters int not null default 4;
+
+
+alter table books add image text not null default 'https://cdn.dribbble.com/users/23334/screenshots/5400829/book.jpg?compress=1&resize=800x600'

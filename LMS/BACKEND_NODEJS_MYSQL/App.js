@@ -44,6 +44,7 @@ app.post('/login',(req,res) => {
     }
 })
 app.post('/addBook',(req,res) => {
+    // console.log(req.body);
     if(req.body.name == undefined || req.body.isbn == undefined || req.body.publisher == undefined || req.body.edition == undefined || req.body.price == undefined || req.body.pages == undefined || req.body.author == undefined)
     {
         res.status(400).json({flg:-1});
@@ -52,7 +53,7 @@ app.post('/addBook',(req,res) => {
     {
         let bookObj = Book.createObj();
         const addBook = async () => {
-            let promise = await bookObj.insertBook(req.body.name,req.body.isbn,req.body.publisher,req.body.edition,req.body.price,req.body.pages,req.body.author);
+            let promise = await bookObj.insertBook(req.body.name,req.body.isbn,req.body.publisher,req.body.edition,req.body.price,req.body.pages,req.body.author,req.body.image);
             if(promise.flg === 1)
             {
                 res.json({flg:1});
@@ -88,6 +89,23 @@ app.post('/updateBook',(req,res) => {
         updateBook();
     }
 })
+
+app.get('/getBooks',(req,res) => {
+    const getBooks = async () => {
+        const obj = Book.createObj();
+        const promise = await obj.getBooks();
+        if(promise.flg === 1)
+        {
+            res.json({flg:1,books:promise.books});
+        }
+        else
+        {
+            res.status(500).json({flg:0});
+        }
+    }
+    getBooks();
+})
+
 
 app.post('/deleteBook',(req,res) => {
     if(req.body.bookId == undefined)

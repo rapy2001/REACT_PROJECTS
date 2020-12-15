@@ -8,6 +8,8 @@ import AddCourse from "./components/AddCourse";
 import ViewCourses from "./components/ViewCourses";
 import AddBranch from "./components/AddBranch";
 import ViewBranches from "./components/ViewBranches";
+import AddBook from './components/AddBook';
+import ViewBooks from "./components/ViewBooks";
 import Footer from "./components/Footer";
 import './public/style.css';
 const App = () => {
@@ -67,6 +69,12 @@ const App = () => {
                 </Route>
                 <Route path = '/viewBranches'>
                     <ViewBranches isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage}/>
+                </Route>
+                <Route path = '/addBook'>
+                    <AddBook isLoggedIn = {isLoggedIn} crntUser  = {crntUser} showMessage = {showMessage}/>
+                </Route>
+                <Route path = '/viewBooks'>
+                    <ViewBooks isLoggedIn = {isLoggedIn} crntUser  = {crntUser} showMessage = {showMessage}/>
                 </Route>
             </Switch>
             <Footer />
