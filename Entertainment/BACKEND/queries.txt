@@ -1,0 +1,6 @@
+create table users (
+    user_id int primary key auto_increment,
+    username varchar(50) not null default 'USERNAME',
+    password varchar(100) not null default 'PASSWORD',
+    image text not null
+);
