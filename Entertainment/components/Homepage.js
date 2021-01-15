@@ -74,7 +74,7 @@ const Homepage = () => {
            <div className = 'homepage_box_1'>
                <div className = 'header'>
                    <Link className = 'logo' to = '/'>Entertainment</Link>
-                   <Link className = 'link' to = '/signup'>
+                   <Link className = 'link' to = '/signin'>
                        Sign In
                    </Link>
                </div>
@@ -150,6 +150,30 @@ const Homepage = () => {
                     <h4>Ready to Watch ? Enter your Email to create or restart your membership</h4>
                 </div>
            </div>
+           <div class="part_8">
+                <div class="part_8_box_2">
+                    <div class="part_8_box_2_box_1">
+                        <div>
+                            <h2>SHOP</h2>
+                            <h3>Always Pan</h3>
+                            <h3>Main Plates</h3>
+                            <h3>Side Bowls</h3>
+                            <h3>Drinking Glasses</h3>
+                            <h3>Dinner for 4</h3>
+                        </div>
+                        <div>
+                            <h2>COMPANY</h2>
+                            <h3>Mission</h3>
+                            <h3>FAQs</h3>
+                        </div>
+                        <div>
+                            <h2>SOCIAL</h2>
+                            <h3>Instagram</h3>
+                            <h3>twitter</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
            <div className = 'footer'>
                 <h4>2020. Rajarshi Saha</h4>
             </div>

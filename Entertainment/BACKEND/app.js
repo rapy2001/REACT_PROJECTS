@@ -5,10 +5,12 @@ const bcrypt = require('bcrypt');
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 env.config();
 const User = require('./classes/User');
 
 app.post('/addUser',(req,res) => {
+    // console.log(req.body)
     if(req.body.username == undefined || req.body.password == undefined)
     {
         res.status(400).json({
@@ -49,7 +51,7 @@ app.post('/addUser',(req,res) => {
                                 }
                                 else
                                 {
-                                    res.status(500).json({flg:0});
+                                    res.json({flg:0});
                                 }
                             }
                         }

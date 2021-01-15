@@ -5,9 +5,9 @@
 }
 :root{
     --family:'Josefin Sans', sans-serif;
-    /* --color:#E50914; */
-    --color:rgb(204, 102, 255);
-    transition:.2s all linear;
+    --color:#E50914;
+    /* --color:rgb(204, 102, 255); */
+    --transitionValue:.2s all linear;
 }
 
 .homepage{
@@ -269,4 +269,236 @@
     font-weight:100;
     color:white;
     font-size:1.3rem;
+}
+
+.message{
+    /* border:1px solid red; */
+    width:100vw;
+    height:100vh;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background:rgba(0,0,0,.7);
+}
+
+.messageBox_1{
+    /* border:1px solid red; */
+    margin-top:3rem;
+    display:flex;
+    justify-content: flex-end;
+    padding-right:4rem;
+}
+
+.messageBox_1 h4{
+    width:5rem;
+    height:5rem;
+    border:3px solid white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:1rem;
+    color:white;
+    transition:var(--transitionValue);
+}
+
+.messageBox_1 h4:hover{
+    cursor: pointer;
+    background-color:white;
+    color:black;
+}
+
+.messageBox_2{
+    /* border:1px solid red; */
+    margin-top:4rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:3rem 0rem;
+}
+
+.messageImageBox{
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: center;
+    margin-top:4rem;
+    align-items: center;
+}
+
+.messageImageBox img{
+    width:20vw;
+    height:15vw;
+    border-radius:1rem;
+}
+
+.messageBox_2 h4{
+    font-size:2rem;
+    color:var(--color);
+    font-weight:100;
+    margin-top:2rem;
+    text-align: center;
+}
+
+.messageBox_2_box {
+    /* border:1px solid red; */
+    width:50vw;
+    height:30vw;
+    background-color:white;
+    border-radius:1rem;
+}
+
+.part_8{
+	/*border:1px solid red;*/
+	padding:5px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-around;
+	background-color:black;
+	color:white;
+	padding-top:100px;
+    padding-bottom:100px;
+    font-family:var(--family);
+}
+
+.part_8_box_2{
+	padding:5px;
+	/*border:1px solid red;*/
+	flex-shrink:0;
+	flex-basis:40%;
+	display:flex;
+	flex-direction: column;
+}
+.part_8_box_2_box_1{
+	padding:5px;
+	/*border:1px solid red;*/
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+}
+.part_8_box_2_box_1 div{
+	/*border:1px solid red;*/
+	margin-right:75px;
+}
+.part_8_box_2_box_1 div h2{
+	font-size:18px;
+}
+.part_8_box_2_box_1 div h3{
+    font-size:15px;
+    margin-top:1rem;
+	transition:.2s all linear;
+}
+.part_8_box_2_box_1 div h3:hover{
+	color:var(--color);
+	cursor:pointer;
+}
+.part_8_box_2_box_2{
+	/*border:1px solid red;*/
+	padding:5px;
+	text-align:center;
+	margin-top:100px;
+}
+.part_8_box_2_box_2 h4{
+	display:inline-block;
+	/*border:1px solid red;*/
+	margin-right:20px;
+	font-weight:100;
+	color:rgba(255,255,255,.5);
+}
+
+.login{
+    /* border:1px solid red; */
+    min-height: 100vh;
+}
+
+.loginBox_1{
+    border:1px solid transparent;
+    /* height:90vh; */
+    background-size:contain;
+    background-position:center center;
+    background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://images.pexels.com/photos/1769413/pexels-photo-1769413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+}
+
+.loginFormBox{
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:88%;
+    margin-top:8rem;
+    margin-bottom:8rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding:3rem;
+    border-radius:1rem;
+    background-color:rgba(0,0,0,.7);
+    height:60vh;
+    
+}
+
+.form h3{
+    color:white;
+    font-weight:400;
+    margin-bottom:1.5rem;
+    font-size:1.5rem;
+}
+
+.form input{
+    width:25rem;
+    height:3rem;
+    padding:1.2rem 1rem;
+    border-radius:.3rem;
+    background:rgba(255,255,255,.5);
+    font-family:var(--family);
+    font-size:1rem;
+    border:none;
+    outline:none;
+    margin-top:.8rem;
+    border:2px solid transparent;
+    margin-bottom:.8rem;
+    color:white;
+}
+
+.btn{
+    margin-top:1rem;
+    margin-bottom:1rem;
+    border:none;
+    background:var(--color);
+    border-radius:.2rem;
+    color:white;
+    font-family:var(--family);
+    font-size:1.2rem;
+    outline: none;
+    padding:1.5rem 0rem;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.form input:focus{
+    border:2px solid rgb(77, 77, 255);
+}
+.form h4{
+    color:white;
+    font-weight:100;
+}
+.address{
+    color:white;
+    font-weight:400;
+    outline:none;
+    text-decoration: none;
+}
+
+.form button{
+    margin-top:3rem;
+}
+
+.form button h4{
+    margin-top:1.5rem;
+}
+
+.login .part_8{
+    height:80vh;
 }
