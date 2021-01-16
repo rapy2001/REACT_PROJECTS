@@ -4,3 +4,10 @@ create table users (
     password varchar(100) not null default 'PASSWORD',
     image text not null
 );
+
+create table accounts (
+    account_id int primary key auto_increment,
+    user_id int,
+    account_name varchar(20) not null default 'ACCOUNT NAME',
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);

@@ -4,7 +4,7 @@ import './public/style.css';
 import Homepage from './components/Homepage';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
-
+import Account from './components/Account';
 const App = () => {
     const [isLoggedIn,setIsLoggedIn] = React.useState(false);
     const [message,setMessage] = React.useState({
@@ -14,7 +14,8 @@ const App = () => {
     })
     const [crntUser, setCrntUser] = React.useState({
         username:'',
-        userId:-1
+        userId:-1,
+        accountId:-1
     })
     const showMessage = (text,type) => {
         setMessage({
@@ -38,7 +39,12 @@ const App = () => {
         })
         setIsLoggedIn(true);
     }
-
+    const updateAccount = (account) => {
+        setCrntUser({
+            ...crntUser,
+            accountId:account
+        })
+    }
     const logOut = () => {
         setCrntUser({
             username:'',
@@ -46,6 +52,7 @@ const App = () => {
         })
         setIsLoggedIn(false);
     }
+    console.log(crntUser);
     return (
         <Router>
             {message.show == true ?   
@@ -68,10 +75,13 @@ const App = () => {
                     <Homepage />
                 </Route>
                 <Route path = '/signin' exact>
-                    <Signin showMessage = {showMessage} logIn = {logIn} />
+                    <Signin showMessage = {showMessage} logIn = {logIn} Account = {Account}/>
                 </Route>
                 <Route path = '/signup'>
                     <Signup showMessage = {showMessage}/>
+                </Route>
+                <Route to = '/account' exact>
+                    {isLoggedIn === true ?  <Account showMessage = {showMessage} updateAccount = {updateAccount} userId = {crntUser.userId} /> : <div><h4>Please Log in to Access this Page</h4></div>}
                 </Route>
             </Switch>
         </Router>

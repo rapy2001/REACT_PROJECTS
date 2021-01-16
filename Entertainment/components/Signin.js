@@ -1,6 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
+import Axios from 'axios';
 const Signin = (props) => {
+    let history = useHistory();
     const [user,setUser] = React.useState({
         username:'Username',
         password:'Password'
@@ -19,29 +21,45 @@ const Signin = (props) => {
         }
         else
         {
-            fetch('',{
-                method:'POST',
-                body:JSON.stringify(user)
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                if(data.flg == 1)
+            Axios.post('http://192.168.0.6:5000/login',{username:user.username,password:user.password})
+            .then((response) => {
+                console.log(response.data);
+                if(response.data.flg == 1)
                 {
-                    props.logIn(user);
-                    props.showMessage('Logged In',1);
+                    
+                    setUser({
+                        username:'',
+                        password:''
+                    })
+                    props.logIn(response.data.user);
+                    setTimeout(() => {
+                        history.push('/account');
+                    },500)
+                }
+                else if(response.data.flg == 2)
+                {
+                    props.showMessage('The Username does not exists. Please Register',0);
+                    setTimeout(() => {
+                        history.push('./signup');
+                    },5500)
+                }
+                else if(response.data.flg == 3)
+                {
+                    props.showMessage('The Password is Wrong',0);
                 }
                 else
                 {
-                    props.showMessage('Interal Server Error. Please try again later',0);
+                    props.showMessage('Internal Server Error. Please try again later');
                 }
             })
             .catch((err) => {
-                props.showMessage(`No Response from the Server : ${err}`,0);
+                props.showMessage(`No Response from the Server. Err: ${err}`)
             })
         }
     }
     return (
         <div className = 'login'>
+
             <div className = 'loginBox_1'>
                 <div className = 'header'>
                    <Link className = 'logo' to = '/'>Entertainment</Link>
@@ -68,7 +86,7 @@ const Signin = (props) => {
                             onChange = {handleChange} 
                             name = 'password'
                         />
-                        <button className = 'btn'>
+                        <button className = 'btn' type = 'submit'>
                             Sign In
                         </button>
                         <h4>New to Entertainment ? <Link className = 'address' to = '/signup'>Signup  Now</Link></h4>
