@@ -40,7 +40,7 @@ const faq = [{
     convallis viverra arcu. `
 },
 ]
-const Homepage = () => {
+const Homepage = (props) => {
     const Card = ({question,answer}) => {
         const [open,setOpen] = React.useState(false);
         if(open)
@@ -74,9 +74,12 @@ const Homepage = () => {
            <div className = 'homepage_box_1'>
                <div className = 'header'>
                    <Link className = 'logo' to = '/'>Entertainment</Link>
-                   <Link className = 'link' to = '/signin'>
-                       Sign In
-                   </Link>
+                   <div>
+                        <Link className = 'link' to = '/signin'>
+                            Sign In
+                        </Link>
+                        {props.isLoggedIn ? props.crntUser.username === 'Admin' ? <Link to = '/addItem'>Add</Link> : null : null}
+                   </div>
                </div>
                <div className = 'main'>
                    <div className = 'main_box_1'>
@@ -85,8 +88,8 @@ const Homepage = () => {
                    </div>
                    <div className = 'main_box_2'>
                        <form>
-                           <input type = 'text' placeholder = 'Email Address' autoComplete = 'off'/>
-                           <button>Try Now</button>
+                           <input type = 'text' disabled placeholder = 'Email Address' autoComplete = 'off'/>
+                           <button disabled>Try Now</button>
                        </form>
                        <h4>Ready to Watch ? Enter your Email to create or restart your membership</h4>
                    </div>

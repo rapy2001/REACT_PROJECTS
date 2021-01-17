@@ -5,6 +5,8 @@ import Homepage from './components/Homepage';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Account from './components/Account';
+import AddItem from './components/AddItem';
+import Movies from './components/Movies';
 const App = () => {
     const [isLoggedIn,setIsLoggedIn] = React.useState(false);
     const [message,setMessage] = React.useState({
@@ -52,7 +54,7 @@ const App = () => {
         })
         setIsLoggedIn(false);
     }
-    console.log(crntUser);
+    // console.log(crntUser);
     return (
         <Router>
             {message.show == true ?   
@@ -72,7 +74,7 @@ const App = () => {
             </div> : null}
             <Switch>
                 <Route path = '/' exact>
-                    <Homepage />
+                    <Homepage crntUser = {crntUser} isLoggedIn = {isLoggedIn}/>
                 </Route>
                 <Route path = '/signin' exact>
                     <Signin showMessage = {showMessage} logIn = {logIn} Account = {Account}/>
@@ -80,8 +82,14 @@ const App = () => {
                 <Route path = '/signup'>
                     <Signup showMessage = {showMessage}/>
                 </Route>
-                <Route to = '/account' exact>
+                <Route path = '/account' exact>
                     {isLoggedIn === true ?  <Account showMessage = {showMessage} updateAccount = {updateAccount} userId = {crntUser.userId} /> : <div><h4>Please Log in to Access this Page</h4></div>}
+                </Route>
+                <Route path = '/addItem' exact>
+                    {isLoggedIn ? crntUser.username === 'Admin' ? <AddItem showMessage = {showMessage} username = {crntUser.username} /> : null : null}
+                </Route>
+                <Route path = '/movies' exact>
+                    {isLoggedIn ? <Movies showMessage = {showMessage} /> : null}
                 </Route>
             </Switch>
         </Router>

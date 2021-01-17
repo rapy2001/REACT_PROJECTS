@@ -33,7 +33,7 @@ const Signin = (props) => {
                     })
                     props.logIn(response.data.user);
                     setTimeout(() => {
-                        history.push('/account');
+                        history.push('/movies');
                     },500)
                 }
                 else if(response.data.flg == 2)
@@ -93,9 +93,9 @@ const Signin = (props) => {
                    </form>
                </div>
             </div>
-            <div class="part_8">
-                <div class="part_8_box_2">
-                    <div class="part_8_box_2_box_1">
+            <div className="part_8">
+                <div className="part_8_box_2">
+                    <div className="part_8_box_2_box_1">
                         <div>
                             <h2>SHOP</h2>
                             <h3>Always Pan</h3>

@@ -9,6 +9,8 @@ app.use(express.urlencoded({extended:true}));
 env.config();
 const User = require('./classes/User');
 const Account = require('./classes/Account');
+const Genre = require('./classes/Genre');
+const Item = require('./classes/Item');
 
 
 app.post('/addUser',(req,res) => {
@@ -198,6 +200,93 @@ app.get('/getAccounts/:userId',(req,res) => {
             }
         }
         getAccounts();
+    }
+})
+
+app.get('/getGenres',(req,res) => {
+    const getGenres = async () => {
+        let obj = Genre.createObj();
+        let promise = await obj.getGenres();
+        if(promise.flg === 1)
+        {
+            res.json({flg:1,genres:promise.genres});
+        }
+        else
+        {
+            res.status(500).json({flg:0});
+        }
+    }
+    getGenres();
+})
+
+app.post('/addItem',(req,res) => {
+    // console.log(req.body);
+    if(req.body.name === undefined || req.body.image === undefined || req.body.genre === undefined || req.body.description === undefined || req.body.type === undefined)
+    {
+        res.status(400).json({flg:0});
+    }
+    else
+    {
+        const addItem = async () => {
+            let obj = new Item();
+            let promise = await obj.addItem(req.body.name,req.body.image,req.body.genre,req.body.description,req.body.type);
+            if(promise.flg === 1)
+            {
+                res.json({flg:1});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        addItem();
+    }
+    
+})
+
+app.get('/getMovies/:genre',(req,res) => {
+    if(req.params.genre === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getMovies = async () => {
+            let obj = new Item();
+            let promise = await obj.getItemsByGenre(2,req.params.genre);
+            if(promise.flg == 1)
+            {
+                res.json({flg:1,movies:promise.data});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        getMovies();
+    }
+})
+
+app.get('/getShows/:genre',(req,res) => {
+    if(req.params.genre === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getMovies = async () => {
+            let obj = new Item();
+            let promise = await obj.getItemsByGenre(1,req.params.genre);
+            if(promise.flg == 1)
+            {
+                res.json({flg:1,shows:promise.data});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        getMovies();
     }
 })
 app.listen(process.env.PORT,() => {

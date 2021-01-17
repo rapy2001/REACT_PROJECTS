@@ -11,3 +11,28 @@ create table accounts (
     account_name varchar(20) not null default 'ACCOUNT NAME',
     FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+create table genre (
+    genre_id int primary key auto_increment,
+    genre_name varchar(20) not null default 'GENRE NAME'
+);
+
+create table shows (
+    show_id int primary key auto_increment,
+    show_name varchar(150) not null default 'SHOW NAME',
+    show_image text,
+    genre_id int,
+    FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE
+);
+
+create table movies (
+    movie_id int primary key auto_increment,
+    movie_name varchar(150) not null default 'SHOW NAME',
+    movie_image text,
+    genre_id int,
+    FOREIGN KEY (genre_id) REFERENCES genre(genre_id) ON DELETE CASCADE
+);
+
+alter table shows add description text not null default 'DESCRIPTION'
+
+alter table movies add description text not null default 'DESCRIPTION'

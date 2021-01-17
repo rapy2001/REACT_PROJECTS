@@ -433,7 +433,7 @@
     padding:3rem;
     border-radius:1rem;
     background-color:rgba(0,0,0,.7);
-    height:60vh;
+    min-height:60vh;
     
 }
 
@@ -501,4 +501,38 @@
 
 .login .part_8{
     height:80vh;
+}
+
+.selectDiv{
+    display: flex;
+    flex-direction:column;
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+
+.selectDiv label {
+    color:white;
+}
+
+.selectDiv select {
+    margin-top:1rem;
+}
+
+select{
+    font-family:var(--family);
+    font-size:1rem;
+    padding:.5rem;
+    color:var(--color);
+    outline:none;
+    border-radius:.3rem;
+}
+select option{
+    margin-top:.3rem;
+    margin-bottom:.3rem;
+}
+
+.addItem{
+    background-size:contain;
+    background-position:center center;
+    background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
 }
