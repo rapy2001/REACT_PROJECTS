@@ -1,0 +1,104 @@
+
+:root{
+    --color:rgb(204, 51, 255);
+    --family: 'Josefin Sans',sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: var(--family);
+}
+
+
+/* .bar{
+    height:1.2vw;
+    border-radius:1rem;
+    background-color:rgb(26, 117, 255);
+    box-shadow: rgba(0,0,0,.5);
+    margin-top:.5rem;
+    margin-left:2rem;
+} */
+
+.face{
+    width:3rem;
+    height:3rem;
+    background-color:red;
+    position:absolute;
+    top:0;
+}
+
+.container{
+    border:1px solid red;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.box{
+    border:1px solid red;
+    width:30vw;
+    height:80vh;
+}
+
+.timer{
+    height:11%;
+    display: flex;
+    background-color:var(--color);
+}
+
+.timer_box_1{
+    flex-basis:70%;
+    /* border:1px solid red; */
+    
+}
+
+.timer_box_1 h3{
+    color:white;
+    margin-top:1rem;
+    margin-left:1rem;
+}
+.timer_box_2{
+    flex-basis: 30%;
+    position: relative;
+}
+
+.time_box{
+    /* border:1px solid red; */
+    position: absolute;
+    top:50%;
+    left:12%;
+    width:70%;
+    height:100%;
+    border-radius:.8rem;
+    box-shadow:0px 0px 3px rgba(0,0,0,.5);
+    padding:.4rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color);
+}
+
+.time_box h4{
+    width:100%;
+    height:100%;
+    border:4px solid rgb(26, 117, 255);
+    font-size:3rem;
+    border-radius:.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+}
+
+.faces{
+    border:1px solid red;
+    margin-top:15%;
+    margin-bottom:15%;
+    height:10%;
+    position: relative;
+}   
