@@ -21,7 +21,7 @@ const Signin = (props) => {
         }
         else
         {
-            Axios.post('http://192.168.0.6:5000/login',{username:user.username,password:user.password})
+            Axios.post('http://192.168.0.5:5000/login',{username:user.username,password:user.password})
             .then((response) => {
                 console.log(response.data);
                 if(response.data.flg == 1)

@@ -9,7 +9,8 @@ class Item
     }
 
     addItem = async (name,image,genre,description,type) => {
-        if(type === 1)
+        // console.log('hello from add Item')
+        if(type == 1)
         {
             try
             {
@@ -22,6 +23,7 @@ class Item
                         }
                         else
                         {
+                            // console.log('hello in item');
                             if(results.affectedRows > 0)
                             {
                                 resolve({flg:1});
@@ -44,7 +46,7 @@ class Item
                 return promise;
             }
         }
-        else if(type === 2)
+        else if(type == 2)
         {
             try
             {
@@ -57,6 +59,7 @@ class Item
                         }
                         else
                         {
+                            // console.log('hello in movies')
                             if(results.affectedRows > 0)
                             {
                                 resolve({flg:1});

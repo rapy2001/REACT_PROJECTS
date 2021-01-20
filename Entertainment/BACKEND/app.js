@@ -116,7 +116,7 @@ app.post('/addAccount',(req,res) => {
     }
     else
     {
-        console.log(req.body);
+        // console.log(req.body);
         const addAccount = async () => {
             let user = User.createObj();
             let promise = await user.getUserById(req.body.userId);
@@ -180,7 +180,7 @@ app.post('/addAccount',(req,res) => {
 })
 
 app.get('/getAccounts/:userId',(req,res) => {
-    console.log(req.params);
+    // console.log(req.params);
     if(req.params.userId == undefined)
     {
         res.status(400).json({flg:-1});
@@ -230,6 +230,7 @@ app.post('/addItem',(req,res) => {
         const addItem = async () => {
             let obj = new Item();
             let promise = await obj.addItem(req.body.name,req.body.image,req.body.genre,req.body.description,req.body.type);
+            console.log(promise);
             if(promise.flg === 1)
             {
                 res.json({flg:1});
@@ -244,51 +245,64 @@ app.post('/addItem',(req,res) => {
     
 })
 
-app.get('/getMovies/:genre',(req,res) => {
-    if(req.params.genre === undefined)
+app.get('/getItems/:type',(req,res) => {
+    // console.log('hello');
+    if(req.params.type === undefined)
     {
         res.status(400).json({flg:-1});
     }
     else
     {
         const getMovies = async () => {
-            let obj = new Item();
-            let promise = await obj.getItemsByGenre(2,req.params.genre);
-            if(promise.flg == 1)
+        
+            let genreObj = Genre.createObj();
+            let promise_1 = await genreObj.getGenres();
+            // console.log(promise_1);
+            if(promise_1.flg === 0)
             {
-                res.json({flg:1,movies:promise.data});
+                res.status(500).json({flg:0});
             }
             else
             {
-                res.status(500).json({flg:0});
+                
+                if(promise_1.genres.length > 0)
+                {
+                    let itemObj = Item.createObj();
+                    let genres = promise_1.genres;
+                    let data = [];
+                    for(let i = 0; i<genres.length; i++)
+                    {
+                        let promise_2 = await itemObj.getItemsByGenre(parseInt(req.params.type),genres[i].genre_id);
+                        if(promise_2.flg === 1)
+                        {
+                            data.push({
+                                genre:genres[i],
+                                items:promise_2.data
+                            })
+                        }
+                        else
+                        {
+                            res.status(500).json({flg:0});
+                            break;
+                        }
+                        if(i === genres.length - 1)
+                        {
+                            res.json({flg:1,data:data});
+                        }
+                    }
+                }
+                else
+                {
+                    res.json({flg:1,data:[]});
+                }
             }
         }
         getMovies();
     }
+    
 })
 
-app.get('/getShows/:genre',(req,res) => {
-    if(req.params.genre === undefined)
-    {
-        res.status(400).json({flg:-1});
-    }
-    else
-    {
-        const getMovies = async () => {
-            let obj = new Item();
-            let promise = await obj.getItemsByGenre(1,req.params.genre);
-            if(promise.flg == 1)
-            {
-                res.json({flg:1,shows:promise.data});
-            }
-            else
-            {
-                res.status(500).json({flg:0});
-            }
-        }
-        getMovies();
-    }
-})
+
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at PORT ${process.env.PORT}`);
 })

@@ -8,7 +8,7 @@ const AddAccount = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Axios.post('http://192.168.0.6:5000/addAccount',{userId:props.userId,name:name})
+        Axios.post('http://192.168.0.5:5000/addAccount',{userId:props.userId,name:name})
         .then((response) => {
             console.log(response.data);
             if(response.data.flg == 1)

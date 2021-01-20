@@ -25,7 +25,7 @@ const Account = (props) => {
         // .catch((err) => {
         //     props.showMessage(`No Response from the Server. Err: ${err}`,0);
         // })
-        fetch(`http://192.168.0.6:5000/getAccounts/${props.userId}`)
+        fetch(`http://192.168.0.5:5000/getAccounts/${props.userId}`)
         .then((response) => {
             return response.json();
         })

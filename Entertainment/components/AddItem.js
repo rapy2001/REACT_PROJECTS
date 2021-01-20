@@ -35,7 +35,7 @@ const AddItem = (props) => {
         }
         else
         {
-            Axios.post('http://192.168.0.6:5000/addItem',{name:item.name,image:item.image,genre:item.genre,description:item.description,type:item.type})
+            Axios.post('http://192.168.0.5:5000/addItem',{name:item.name,image:item.image,genre:item.genre,description:item.description,type:item.type})
             .then((response) => {
                 if(response.data.flg === 1)
                 {
@@ -76,7 +76,7 @@ const AddItem = (props) => {
         }
     }
     const fetchGenre = () => {
-        fetch('http://192.168.0.6:5000/getGenres')
+        fetch('http://192.168.0.5:5000/getGenres')
         .then((response) => response.json())
         .then((data) => {
             if(data.flg === 1)
@@ -97,7 +97,7 @@ const AddItem = (props) => {
     React.useEffect(() => {
         fetchGenre();
     },[])
-    if(props.username === 'Admin')
+    if(props.crntUser.username === 'Admin')
     {
         return (
             <div className = 'login'>
@@ -105,9 +105,16 @@ const AddItem = (props) => {
                 <div className = 'loginBox_1 addItem'>
                     <div className = 'header'>
                        <Link className = 'logo' to = '/'>Entertainment</Link>
-                       <Link className = 'link' to = '/signup'>
-                           Sign In
-                       </Link>
+                       <div>
+                        {
+                            props.isLoggedIn === false ?  
+                                <Link className = 'link' to = '/signin'>
+                                    Sign In
+                                </Link>
+                            :
+                                <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
+                        }
+                    </div> 
                    </div>
                    <div className = 'loginFormBox'>
                        <form className = 'form' onSubmit = {handleSubmit}>

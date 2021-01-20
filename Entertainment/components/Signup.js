@@ -22,7 +22,7 @@ const Signup = (props) => {
         }
         else
         {
-            Axios.post('http://192.168.0.6:5000/addUser',{username:user.username,password:user.password})
+            Axios.post('http://192.168.0.5:5000/addUser',{username:user.username,password:user.password})
             .then((response) => {
                 if(response.data.flg == 1)
                 {

@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import Account from './components/Account';
 import AddItem from './components/AddItem';
 import Movies from './components/Movies';
+import Shows from './components/Shows'
 const App = () => {
     const [isLoggedIn,setIsLoggedIn] = React.useState(false);
     const [message,setMessage] = React.useState({
@@ -74,7 +75,7 @@ const App = () => {
             </div> : null}
             <Switch>
                 <Route path = '/' exact>
-                    <Homepage crntUser = {crntUser} isLoggedIn = {isLoggedIn}/>
+                    <Homepage logout = {logOut} crntUser = {crntUser} isLoggedIn = {isLoggedIn}/>
                 </Route>
                 <Route path = '/signin' exact>
                     <Signin showMessage = {showMessage} logIn = {logIn} Account = {Account}/>
@@ -86,10 +87,13 @@ const App = () => {
                     {isLoggedIn === true ?  <Account showMessage = {showMessage} updateAccount = {updateAccount} userId = {crntUser.userId} /> : <div><h4>Please Log in to Access this Page</h4></div>}
                 </Route>
                 <Route path = '/addItem' exact>
-                    {isLoggedIn ? crntUser.username === 'Admin' ? <AddItem showMessage = {showMessage} username = {crntUser.username} /> : null : null}
+                    {isLoggedIn ? crntUser.username === 'Admin' ? <AddItem showMessage = {showMessage} crntUser = {crntUser} isLoggedIn = {isLoggedIn} /> : null : null}
                 </Route>
                 <Route path = '/movies' exact>
-                    {isLoggedIn ? <Movies showMessage = {showMessage} /> : null}
+                    {isLoggedIn ? <Movies isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : null}
+                </Route>
+                <Route path = '/shows' exact>
+                    {isLoggedIn ? <Shows isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : null}
                 </Route>
             </Switch>
         </Router>
