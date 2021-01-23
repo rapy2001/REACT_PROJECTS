@@ -36,3 +36,12 @@ create table movies (
 alter table shows add description text not null default 'DESCRIPTION'
 
 alter table movies add description text not null default 'DESCRIPTION'
+
+create table episodes(
+    episode_id int primary key auto_increment,
+    episode_name text not null default 'EPISODE NAME',
+    episode_description text not null default 'EPISODE DESCRIPTION',
+    episode_image text not null default 'https://cdn.dribbble.com/users/2402741/screenshots/5258702/popcorn-01.jpg?compress=1&resize=800x600',
+    show_id int,
+    FOREIGN KEY (show_id) REFERENCES shows(show_id) on DELETE CASCADE
+);

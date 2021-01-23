@@ -7,7 +7,10 @@ import Signup from './components/Signup';
 import Account from './components/Account';
 import AddItem from './components/AddItem';
 import Movies from './components/Movies';
-import Shows from './components/Shows'
+import Shows from './components/Shows';
+import AddEpisode from './components/AddEpisode';
+import ItemShow from './components/ItemShow';
+
 const App = () => {
     const [isLoggedIn,setIsLoggedIn] = React.useState(false);
     const [message,setMessage] = React.useState({
@@ -94,6 +97,15 @@ const App = () => {
                 </Route>
                 <Route path = '/shows' exact>
                     {isLoggedIn ? <Shows isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : null}
+                </Route>
+                <Route path = '/addEpisode/:id' exact>
+                    <AddEpisode crntUser = {crntUser} showMessage = {showMessage}/>
+                </Route>
+                <Route path = '/viewShow/:id' exact>
+                    <ItemShow isLoggedIn = {isLoggedIn} type = {2}/>
+                </Route>
+                <Route path = '/viewMovie/:id' exact>
+                    <ItemShow isLoggedIn = {isLoggedIn} type = {1}/>
                 </Route>
             </Switch>
         </Router>

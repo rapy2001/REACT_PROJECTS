@@ -48,7 +48,7 @@ const Movies = (props) => {
                 for(let j = 0; j<data[i].items.length; j++)
                 {
                     temp.push(
-                        <SingleItem key = {data[i].items[j].movie_id} data = {data[i].items[j]}/>
+                        <SingleItem type = {1} key = {data[i].items[j].movie_id} data = {data[i].items[j]}/>
                     )
                 }
                 ary.push(

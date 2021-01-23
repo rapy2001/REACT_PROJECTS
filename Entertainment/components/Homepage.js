@@ -69,7 +69,6 @@ const Homepage = (props) => {
             )
         }
     }
-    // console.log(props);
     return (
         <div className = 'homepage'>
            <div className = 'homepage_box_1'>

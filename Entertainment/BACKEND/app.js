@@ -11,6 +11,8 @@ const User = require('./classes/User');
 const Account = require('./classes/Account');
 const Genre = require('./classes/Genre');
 const Item = require('./classes/Item');
+const Episode = require('./classes/Episode');
+
 
 
 app.post('/addUser',(req,res) => {
@@ -300,6 +302,35 @@ app.get('/getItems/:type',(req,res) => {
         getMovies();
     }
     
+})
+
+app.post('/addEpisode',(req,res) => {
+    // console.log(req.body);
+    if(req.body.name == undefined || req.body.description == undefined || req.body.showId == undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const addEpisode = async () => {
+            let obj = Episode.createObj();
+            let image = req.body.image;
+            if(req.body.image == '')
+            {
+                image = 'https://cdn.dribbble.com/users/2402741/screenshots/5258702/popcorn-01.jpg?compress=1&resize=800x600';
+            }
+            let promise = await obj.addEpisode(req.body.name,req.body.description,image,req.body.showId)
+            if(promise.flg == 1)
+            {
+                res.json({flg:1});
+            }
+            else
+            {
+                res.status(500).json({flg:0});
+            }
+        }
+        addEpisode();
+    }
 })
 
 

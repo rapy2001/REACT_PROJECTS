@@ -38,7 +38,7 @@ const Shows = (props) => {
                 for(let j = 0; j<data[i].items.length; j++)
                 {
                     temp.push(
-                        <SingleItem key = {data[i].items[j].movie_id} data = {data[i].items[j]}/>
+                        <SingleItem type = {2} key = {data[i].items[j].show_id} data = {data[i].items[j]}/>
                     )
                 }
                 ary.push(
@@ -66,6 +66,7 @@ const Shows = (props) => {
     }
     if(props.isLoggedIn)
     {
+        console.log(data);
         return (
             <div>
                 <div className = 'header'>
