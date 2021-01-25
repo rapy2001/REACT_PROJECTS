@@ -141,6 +141,77 @@ class Item
             }
         }
     }
+
+    getItemsById = async (id,type) => {
+        if(type === 1)
+        {
+            try
+            {
+                let promise = await new Promise((resolve,reject) => {
+                    let query = 'SELECT * FROM movies WHERE movie_id = ?';
+                    connection.query(query,[id],(err,results) => {
+                        if(err)
+                        {
+                            reject(new Error(`Error while getting the movie. Err: ${err}`));
+                        }
+                        else
+                        {
+                            resolve(
+                                {
+                                    flg:1,
+                                    data:results
+                                }
+                            )
+                        }
+                    })
+                })
+                return promise;
+            }
+            catch(err)
+            {
+                console.log(err);
+                return await new Promise((resolve,reject) => {
+                    resolve({
+                        flg:0
+                    })
+                })
+            }
+        }
+        else if(type === 2)
+        {
+            try
+            {
+                let promise = await new Promise((resolve,reject) => {
+                    let query = 'SELECT * FROM shows WHERE show_id = ?';
+                    connection.query(query,[id],(err,results) => {
+                        if(err)
+                        {
+                            reject(new Error(`Error while getting the show. Err: ${err}`));
+                        }
+                        else
+                        {
+                            resolve(
+                                {
+                                    flg:1,
+                                    data:results
+                                }
+                            )
+                        }
+                    })
+                })
+                return promise;
+            }
+            catch(err)
+            {
+                console.log(err);
+                return await new Promise((resolve,reject) => {
+                    resolve({
+                        flg:0
+                    })
+                })
+            }
+        }
+    }
 }
 
 module.exports = Item;

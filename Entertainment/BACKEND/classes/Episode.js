@@ -42,6 +42,38 @@ class Episode
             })
         }   
     }
+
+    getShowEpisodes = async (showId) => {
+        try
+        {
+            let promise = await new Promise((resolve,reject) => {
+                let query = 'SELECT * FROM episodes WHERE show_id = ?';
+                connection.query(query,[showId],(err,results) => {
+                    if(err)
+                    {
+                        reject(new Error(`Error while getting the episodes for the show.Err:${err}`));
+                    }
+                    else
+                    {
+                        resolve({
+                            flg:1,
+                            data:results
+                        })
+                    }
+                })
+            })
+            return promise;
+        }
+        catch(err)
+        {
+            console.log(err);
+            return await new Promise((resolve,reject) => {
+                resolve({
+                    flg:0
+                })
+            })
+        }
+    }
 }
 
 module.exports = Episode;

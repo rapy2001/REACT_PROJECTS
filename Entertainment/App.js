@@ -105,7 +105,7 @@ const App = () => {
                     <ItemShow isLoggedIn = {isLoggedIn} type = {2}/>
                 </Route>
                 <Route path = '/viewMovie/:id' exact>
-                    <ItemShow isLoggedIn = {isLoggedIn} type = {1}/>
+                    <ItemShow showMessage = {showMessage} isLoggedIn = {isLoggedIn} type = {1}/>
                 </Route>
             </Switch>
         </Router>

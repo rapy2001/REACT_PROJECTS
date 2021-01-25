@@ -333,7 +333,72 @@ app.post('/addEpisode',(req,res) => {
     }
 })
 
+app.get('/getShow/:id',(req,res) => {
+    if(req.params.id === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getShow = async () => {
+            let obj = Item.createObj();
+            let promise = await obj.getItemsById(req.params.id,2);
+            if(promise.flg === 1)
+            {
+                let newObj = Episode.createObj();
+                let newPromise = await newObj.getShowEpisodes(req.params.id);
+                if(newPromise.flg === 1)
+                {
+                    res.send({
+                        flg:1,
+                        data:{show:promise.data[0],episodes:newPromise.data}
+                    })
+                }
+                else
+                {
+                    res.send({
+                        flg:0
+                    })
+                }
+            }
+            else
+            {
+                res.send({
+                    flg:0
+                })
+            }
+        }
+        getShow();
+    }
+})
 
+app.get('/getMovie/:id',(req,res) => {
+    if(req.params.id === undefined)
+    {
+        res.status(400).json({flg:-1});
+    }
+    else
+    {
+        const getShow = async () => {
+            let obj = Item.createObj();
+            let promise = await obj.getItemsById(req.params.id,1);
+            if(promise.flg === 1)
+            {
+                res.send({
+                    flg:1,
+                    data:promise.data[0]
+                })
+            }
+            else
+            {
+                res.send({
+                    flg:0
+                })
+            }
+        }
+        getShow();
+    }
+})
 app.listen(process.env.PORT,() => {
     console.log(`Server listening at PORT ${process.env.PORT}`);
 })
