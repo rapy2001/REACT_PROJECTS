@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route,Switch,Link} from 'react-router-dom';
 import './public/style.css';
 import Homepage from './components/Homepage';
 import Signin from './components/Signin';
@@ -58,6 +58,24 @@ const App = () => {
         })
         setIsLoggedIn(false);
     }
+    const Empty = () => {
+        return (
+            <div className = 'empty'>
+                <div className = 'empty_box_1'>
+                    <Link to = '/'>Entertainment</Link>
+                    <Link className = 'btn' to = '/signin'>Sign In</Link>
+                </div>
+                <div className = 'empty_box_2'> 
+                    <h4>
+                        Please Log in to view this Page
+                    </h4>
+                </div>
+                <div className = 'footer'>
+                    <h4>2020. Rajarshi Saha</h4>
+                </div>
+            </div>
+        )
+    }
     // console.log(crntUser);
     return (
         <Router>
@@ -93,10 +111,10 @@ const App = () => {
                     {isLoggedIn ? crntUser.username === 'Admin' ? <AddItem showMessage = {showMessage} crntUser = {crntUser} isLoggedIn = {isLoggedIn} /> : null : null}
                 </Route>
                 <Route path = '/movies' exact>
-                    {isLoggedIn ? <Movies isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : null}
+                    {isLoggedIn ? <Movies isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : <Empty />}
                 </Route>
                 <Route path = '/shows' exact>
-                    {isLoggedIn ? <Shows isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : null}
+                    {isLoggedIn ? <Shows isLoggedIn = {isLoggedIn} crntUser = {crntUser} showMessage = {showMessage} /> : <Empty />}
                 </Route>
                 <Route path = '/addEpisode/:id' exact>
                     <AddEpisode crntUser = {crntUser} showMessage = {showMessage}/>

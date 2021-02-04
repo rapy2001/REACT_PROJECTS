@@ -74,7 +74,7 @@ const Movies = (props) => {
             
         }
     }
-    // console.log(data[0]);
+    
     let obj = {
         background:`linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url(${chosen.movie_image})`,
         backgroundSize:'cover',
@@ -86,19 +86,23 @@ const Movies = (props) => {
             <div className = 'item'>
                 <div className = 'header'>
                     <Link className = 'logo' to = '/'>Entertainment</Link>
-                    <div>
-                        <Link to = '/shows'>TV Shows</Link>
-                        <Link style = {{textDecoration:'bold'}} to = '/movies'>Movies</Link>
-                    </div>
-                    <div>
-                        {
-                            props.isLoggedIn === false ?  
-                                <Link className = 'link' to = '/signin'>
-                                    Sign In
-                                </Link>
-                            :
-                                <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
-                        }
+                    
+                    <div className = 'header_box'>
+                        <div className = 'header_box_1'>
+                            <Link to = '/shows'>TV Shows</Link>
+                            <Link style = {{textDecoration:'bold'}} to = '/movies'>Movies</Link>
+                        </div>
+                        <div className = 'header_box_2'>
+                            {
+                                props.isLoggedIn === false ?  
+                                    <Link className = 'link' to = '/signin'>
+                                        Sign In
+                                    </Link>
+                                :
+                                    <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
+                            }
+                        </div>
+                        
                     </div> 
                 </div>
                 <div>
@@ -121,49 +125,6 @@ const Movies = (props) => {
                     {data.length > 0 ? ary: <div>
                         <h4>No Movies</h4>
                     </div> }
-                </div>
-                <div class="part_8">
-                <div class="part_8_box_2">
-                    <div class="part_8_box_2_box_1">
-                        <div>
-                            <h2>SHOP</h2>
-                            <h3>Always Pan</h3>
-                            <h3>Main Plates</h3>
-                            <h3>Side Bowls</h3>
-                            <h3>Drinking Glasses</h3>
-                            <h3>Dinner for 4</h3>
-                        </div>
-                        <div>
-                            <h2>COMPANY</h2>
-                            <h3>Mission</h3>
-                            <h3>FAQs</h3>
-                        </div>
-                        <div>
-                            <h2>SOCIAL</h2>
-                            <h3>Instagram</h3>
-                            <h3>twitter</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className = 'footer'>
-                <h4>2020. Rajarshi Saha</h4>
-            </div>
-            </div>
-        )
-    }
-    else
-    {
-        return (
-            <div>
-                <div className = 'header'>
-                    <Link className = 'logo' to = '/'>Entertainment</Link>
-                    <div>
-                        <Link to = '/signin'>Sign In</Link>
-                    </div>     
-                </div>
-                <div>
-                    <h4>Please Sign In to access this Page</h4>
                 </div>
                 <div class="part_8">
                 <div class="part_8_box_2">

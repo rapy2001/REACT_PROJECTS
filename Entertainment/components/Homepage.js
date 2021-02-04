@@ -74,14 +74,23 @@ const Homepage = (props) => {
            <div className = 'homepage_box_1'>
                <div className = 'header'>
                    <Link className = 'logo' to = '/'>Entertainment</Link>
-                   <div>
+                  
+                   <div className = 'header_box_1'>
+                        {
+                            props.isLoggedIn 
+                                &&  
+                            <div className = 'header_box_1'>
+                                <Link style = {{textDecoration:'bold'}} to = '/shows'>TV Shows</Link>
+                                <Link to = '/movies'>Movies</Link>
+                            </div> 
+                        }
                        {props.isLoggedIn === false ?  <Link className = 'link' to = '/signin'>
                             Sign In
                         </Link>
                         :
                         <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
                         }
-                        {props.isLoggedIn && <Link to = '/movies'>Movies</Link>}
+                        {/* {props.isLoggedIn && <Link to = '/movies'>Movies</Link>} */}
                         {props.isLoggedIn ? props.crntUser.username === 'Admin' ? <Link to = '/addItem'>Add</Link> : null : null}
                    </div>
                </div>

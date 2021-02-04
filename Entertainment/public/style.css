@@ -16,6 +16,11 @@
     font-family:var(--family);
 }
 
+a{
+    font-weight:100;
+    text-decoration: none;
+    outline:none;
+}
 
 .homepage_box_1{
     /* border:1px solid red; */
@@ -461,8 +466,6 @@
 }
 
 .btn{
-    margin-top:1rem;
-    margin-bottom:1rem;
     border:none;
     background:var(--color);
     border-radius:.2rem;
@@ -470,7 +473,7 @@
     font-family:var(--family);
     font-size:1.2rem;
     outline: none;
-    padding:1.5rem 0rem;
+    padding:1rem 1rem;
 }
 
 .btn:hover{
@@ -539,7 +542,7 @@ select option{
 
 
 .item{
-    border:1px solid blue;
+    /* border:1px solid blue; */
     min-height:100vh;
     font-family:var(--family);
     background-color:black;
@@ -661,4 +664,75 @@ select option{
     font-weight:100;
     color:white;
     font-size:1.5rem;
+}
+
+.header_box{
+    display:flex;
+    /* border:1px solid red; */
+}
+
+.empty{
+    width:100vw;
+    height:100vh;
+    background-color:black;
+}
+
+.empty_box_1{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:0rem 4rem;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    height:7rem;
+}
+
+.empty_box_1 a{
+    font-family:var(--family);
+    text-decoration: none;
+}
+
+.empty_box_1 a:first-child{
+    color:var(--color);
+    font-size:2rem;
+}
+
+.empty_box_2{
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:calc(100vh - 11.5rem);
+}
+
+.empty_box_2 h4{
+    border:2px solid var(--color);
+    width:40vw;
+    height:7vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-family:var(--family);
+    font-weight:100;
+    font-size:2rem;
+    color:var(--color);
+}
+
+.header_box_1{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:2rem;
+    margin-right:2rem;
+}
+
+.header_box_1 a{
+    color:rgba(255,255,255,.5);
+    transition: var(--transitionValue);
+    margin-left:.5rem;
+    margin-right:.5rem;
+}
+
+.header_box_1 a:hover{
+    cursor: pointer;
+    color:white;
 }

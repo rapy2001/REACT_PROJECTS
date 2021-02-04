@@ -3,6 +3,7 @@ import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import SingleItem from './SingleItem';
 const Shows = (props) => {
+    let chosen = null;
     const [data,setData] = React.useState([]);
     const fetchGenre = () => {
         fetch('http://192.168.0.5:5000/getItems/1')
@@ -11,6 +12,13 @@ const Shows = (props) => {
             if(data.flg === 1)
             {
                 setData(data.data);
+                for(let i = 0; i < data.length; i++)
+                {
+                    if(data[i].items.length > 0)
+                    {
+                        chosen = data[i].items[0];
+                    }
+                }
             }
             else
             {
@@ -27,6 +35,7 @@ const Shows = (props) => {
         fetchGenre();
     },[])
     let ary = [];
+    console.log(data,chosen);
     if(data.length > 0)
     {
         
@@ -66,27 +75,55 @@ const Shows = (props) => {
     }
     if(props.isLoggedIn)
     {
-        console.log(data);
+        // console.log(data);
+        let obj = null;
+        if(chosen !== null)
+        {
+            let obj = {
+                    background:`linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url(${chosen.movie_image})`,
+                    backgroundSize:'cover',
+                    backgroundPosition:'center center'
+                }
+        }
+            
         return (
-            <div>
+            <div className = 'item'>
                 <div className = 'header'>
                     <Link className = 'logo' to = '/'>Entertainment</Link>
-                    <div>
-                        <Link style = {{textDecoration:'bold'}} to = '/shows'>TV Shows</Link>
-                        <Link to = '/movies'>Movies</Link>
-                    </div>  
-                    <div>
-                        {
-                            props.isLoggedIn === false ?  
-                                <Link className = 'link' to = '/signin'>
-                                    Sign In
-                                </Link>
-                            :
-                                <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
-                        }
+                     
+                    <div className = 'header_box'>
+                        <div className = 'header_box_1'>
+                            <Link style = {{textDecoration:'bold'}} to = '/shows'>TV Shows</Link>
+                            <Link to = '/movies'>Movies</Link>
+                        </div> 
+                        <div className = 'header_box_2'>
+                            {
+                                props.isLoggedIn === false ?  
+                                    <Link className = 'link' to = '/signin'>
+                                        Sign In
+                                    </Link>
+                                :
+                                    <button className = 'btn' onClick = {() => props.logout()} >Log Out ({props.crntUser.username})</button>
+                            }
+                        </div>
+                        
                     </div>    
                 </div>
                 <div>
+                    {
+                        chosen !== null  && 
+                            <div className = 'item_box_1' style = {obj}>
+                                <div className = 'item_box_1_box'>
+                                    <h1>{chosen.show_name}</h1>
+                                    <p>
+                                        {chosen.description}
+                                    </p>
+                                    <div>
+                                        <h4>Play</h4>
+                                    </div>
+                                </div>
+                            </div>
+                    }
                     {data.length > 0 ? ary: <div>
                         <h4>No TV Shows</h4>
                     </div> }
